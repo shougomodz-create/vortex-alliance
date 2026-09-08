@@ -124,9 +124,29 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================
   
   window.setLayout = function(section, layout) {
-    const container = document.getElementById(section + '-container');
-    if (!container) return;
+    // Handle afiliados (multiple containers per category)
+    const containers = document.querySelectorAll('[id^="' + section + '-"][id$="-container"]');
+    if (containers.length === 0) {
+      // Try single container (parcerias)
+      const single = document.getElementById(section + '-container');
+      if (single) applyLayout(single, layout);
+    } else {
+      containers.forEach(c => applyLayout(c, layout));
+    }
     
+    // Update active button in the section
+    const toggle = document.querySelector('#' + section + ' .layout-toggle') || 
+                   document.querySelector('[id^="' + section + '"] .layout-toggle');
+    if (toggle) {
+      toggle.querySelectorAll('.layout-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.layout === layout);
+      });
+    }
+    
+    localStorage.setItem('vortex-layout-' + section, layout);
+  };
+  
+  function applyLayout(container, layout) {
     const scroll = container.querySelector('.cards-scroll');
     if (!scroll) return;
     
@@ -137,18 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
       container.classList.remove('vertical-layout');
       scroll.classList.remove('vertical');
     }
-    
-    // Update active button
-    const toggle = container.parentElement.querySelector('.layout-toggle');
-    if (toggle) {
-      toggle.querySelectorAll('.layout-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.layout === layout);
-      });
-    }
-    
-    // Save preference
-    localStorage.setItem('vortex-layout-' + section, layout);
-  };
+  }
   
   // Load saved layouts
   ['parcerias', 'afiliados'].forEach(section => {
