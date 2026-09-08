@@ -190,7 +190,7 @@ app.get('/', async (req, res) => {
       <title>${settings.site_title || 'ALIANÇA VORTEX'}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Raleway:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
@@ -311,7 +311,6 @@ app.get('/', async (req, res) => {
                         <h3 class="card-group-name">${a.nome}</h3>
                         <div class="card-group-tags">
                           <span class="card-group-tag">${a.plataforma || 'WhatsApp'}</span>
-                          ${a.membros ? `<span class="card-group-members">👥 ${a.membros.toLocaleString('pt-BR')}</span>` : ''}
                         </div>
                         <p class="card-group-desc">${a.descricao || ''}</p>
                         <span class="card-group-btn">ACESSAR ↗</span>
@@ -355,7 +354,6 @@ app.get('/', async (req, res) => {
                     <div class="card-group-tags">
                       <span class="card-group-tag">${p.plataforma || 'Discord'}</span>
                       ${p.categoria ? `<span class="card-group-tag">${p.categoria}</span>` : ''}
-                      ${p.membros ? `<span class="card-group-members">👥 ${p.membros.toLocaleString('pt-BR')}</span>` : ''}
                     </div>
                     <p class="card-group-desc">${p.descricao || ''}</p>
                     <span class="card-group-btn">ACESSAR ↗</span>

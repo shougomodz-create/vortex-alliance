@@ -22,7 +22,8 @@
   --border-accent: #c41e3a;
   
   --font-heading: 'Cinzel Decorative', 'Cinzel', serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-body: 'Raleway', -apple-system, sans-serif;
+  --font-label: 'DM Sans', -apple-system, sans-serif;
   
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -137,7 +138,8 @@ body::before {
 .nav-links a {
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-family: var(--font-label);
+  font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -151,8 +153,10 @@ body::before {
 .btn-nav {
   background: transparent;
   border: 1px solid var(--border-color);
-  padding: 0.5rem 1.25rem;
+  padding: 0.4rem 1rem;
   border-radius: var(--radius-sm);
+  font-family: var(--font-label);
+  font-size: 0.72rem;
 }
 
 .btn-nav:hover {
@@ -183,7 +187,8 @@ body::before {
   background: rgba(196, 30, 58, 0.1);
   border: 1px solid rgba(196, 30, 58, 0.3);
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  font-family: var(--font-label);
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   color: var(--accent-red-light);
@@ -205,19 +210,20 @@ body::before {
 }
 
 .hero-subtitle {
-  font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-family: var(--font-label);
+  font-size: clamp(1rem, 3vw, 1.5rem);
   font-weight: 400;
   font-style: italic;
   color: var(--text-secondary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .hero-description {
-  font-size: 1rem;
+  font-family: var(--font-label);
+  font-size: 0.9rem;
   color: var(--text-muted);
   max-width: 500px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .hero-buttons {
@@ -238,9 +244,9 @@ body::before {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 1rem 2rem;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--font-label);
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -335,6 +341,7 @@ body::before {
 }
 
 .stat-label {
+  font-family: var(--font-label);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.15em;
@@ -365,6 +372,7 @@ body::before {
   background: rgba(196, 30, 58, 0.1);
   border: 1px solid rgba(196, 30, 58, 0.3);
   border-radius: var(--radius-sm);
+  font-family: var(--font-label);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.15em;
@@ -372,9 +380,9 @@ body::before {
 }
 
 .section-number {
-  font-family: var(--font-heading);
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--text-muted);
   padding: 0.375rem 0.75rem;
   border: 1px solid var(--border-color);
@@ -389,9 +397,10 @@ body::before {
 }
 
 .section-desc {
-  font-size: 1rem;
+  font-family: var(--font-label);
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   max-width: 500px;
 }
 
@@ -421,12 +430,13 @@ body::before {
 }
 
 .layout-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.75rem;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition);
@@ -554,10 +564,11 @@ a.card, a.card:hover, a.card:active {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.6rem;
   background: rgba(255, 255, 255, 0.03);
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--accent-white);
   margin-top: auto;
@@ -601,12 +612,13 @@ a.card, a.card:hover, a.card:active {
 }
 
 .card-role {
+  font-family: var(--font-label);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent-red-light);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   padding: 0.375rem 0.75rem;
   background: rgba(196, 30, 58, 0.1);
   border: 1px solid rgba(196, 30, 58, 0.2);
@@ -633,12 +645,13 @@ a.card, a.card:hover, a.card:active {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1rem;
+  padding: 0.5rem 0.875rem;
   background: transparent;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  font-size: 0.75rem;
+  font-family: var(--font-label);
+  font-size: 0.72rem;
   font-weight: 600;
   text-decoration: none;
   transition: var(--transition);
@@ -772,11 +785,12 @@ a.card, a.card:hover, a.card:active {
 
 .card-group-tag {
   display: inline-block;
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.5rem;
   background: rgba(196, 30, 58, 0.12);
   border: 1px solid rgba(196, 30, 58, 0.25);
   border-radius: var(--radius-full);
-  font-size: 0.6rem;
+  font-family: var(--font-label);
+  font-size: 0.58rem;
   font-weight: 600;
   color: var(--accent-red-light);
   text-transform: uppercase;
@@ -806,6 +820,7 @@ a.card, a.card:hover, a.card:active {
   padding-top: 0.5rem;
   border-top: 1px solid var(--border-color);
   text-align: center;
+  font-family: var(--font-label);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -832,14 +847,14 @@ a.card, a.card:hover, a.card:active {
 }
 
 .category-title {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-family: var(--font-label);
+  font-size: 0.9rem;
+  font-weight: 700;
   color: var(--accent-red);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
   border-bottom: 1px solid rgba(196, 30, 58, 0.2);
 }
 
@@ -863,6 +878,7 @@ a.card, a.card:hover, a.card:active {
 }
 
 .footer p {
+  font-family: var(--font-label);
   font-size: 0.8rem;
   color: var(--text-muted);
   letter-spacing: 0.1em;
@@ -883,6 +899,7 @@ a.card, a.card:hover, a.card:active {
   text-align: center;
   padding: 3rem;
   color: var(--text-muted);
+  font-family: var(--font-label);
   font-style: italic;
   width: 100%;
 }
