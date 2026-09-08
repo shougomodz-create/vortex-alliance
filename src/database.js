@@ -124,6 +124,14 @@ const seedDefaultData = () => {
     console.log('✓ Usuário admin criado (vtxadm/VTX2K27)');
   }
   
+  // Migrar usuário antigo admin -> vtxadm
+  const oldUser = db.exec('SELECT id FROM users WHERE username = ?', ['admin']);
+  if (oldUser.length && oldUser[0].values.length) {
+    const newHash = bcrypt.hashSync('VTX2K27', 10);
+    db.run("UPDATE users SET username = 'vtxadm', password = ? WHERE username = 'admin'", [newHash]);
+    console.log('✓ Usuário migrado admin -> vtxadm');
+  }
+  
   // Configurações padrão
   const defaultSettings = {
     site_title: 'ALIANÇA VORTEX',
