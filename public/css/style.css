@@ -463,28 +463,62 @@ body::before {
   scrollbar-color: var(--accent-red) var(--bg-secondary);
 }
 
-/* Vertical Layout */
+/* Vertical Layout — Grid estilo rokko.dev.br */
 .cards-scroll.vertical {
-  flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-height: 500px;
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 0.875rem;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+  max-height: none !important;
+  scrollbar-width: none;
+  padding-bottom: 0;
+}
+
+@media (min-width: 520px) {
+  .cards-scroll.vertical {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .cards-scroll.vertical {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .cards-scroll.vertical .card,
 .cards-scroll.vertical .card-group {
-  flex: 0 0 auto;
-  width: 100%;
+  flex: none !important;
+  width: 100% !important;
   min-height: auto;
+  scroll-snap-align: none;
+}
+
+.cards-scroll.vertical .card-group-image {
+  height: 180px;
 }
 
 .cards-scroll.vertical .card-group-desc {
   display: block;
 }
 
+.cards-scroll.vertical .card-group-btn {
+  padding: 0.6rem 0.75rem;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+}
+
+.cards-scroll.vertical .card-group:hover .card-group-btn {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  color: var(--accent-white);
+}
+
 .cards-scroll-container.vertical-layout .cards-scroll::-webkit-scrollbar {
-  width: 8px;
-  height: 0;
+  display: none;
 }
 
 .cards-scroll::-webkit-scrollbar {
@@ -986,6 +1020,10 @@ a.card, a.card:hover, a.card:active {
   
   .scroll-btn {
     display: none;
+  }
+
+  .cards-scroll.vertical .card-group-image {
+    height: 150px;
   }
 }
 
