@@ -165,8 +165,8 @@ app.get('/', async (req, res) => {
     
     // Buscar dados para as seções
     const oficiais = await database.all('SELECT * FROM oficiais WHERE ativo = 1 ORDER BY ordem ASC LIMIT 6');
-    const parcerias = await database.all('SELECT * FROM parcerias WHERE ativo = 1 ORDER BY ordem ASC LIMIT 6');
-    const allAfiliados = await database.all('SELECT * FROM afiliados WHERE ativo = 1 ORDER BY ordem ASC');
+    const parcerias = await database.all('SELECT * FROM parcerias WHERE ativo = 1 ORDER BY vip DESC, ordem ASC LIMIT 6');
+    const allAfiliados = await database.all('SELECT * FROM afiliados WHERE ativo = 1 ORDER BY vip DESC, ordem ASC');
     
     // Agrupar afiliados por categoria (case-insensitive)
     const afiliadosByCat = {};
@@ -297,8 +297,9 @@ app.get('/', async (req, res) => {
               <div class="cards-scroll-container" id="afiliados-${idx}-container">
                 <div class="cards-scroll">
                   ${afiliadosByCat[key].map(a => `
-                    <a href="${a.link || '#'}" class="card-group" target="_blank" rel="noopener">
+                    <a href="${a.link || '#'}" class="card-group${a.vip ? ' card-vip' : ''}" target="_blank" rel="noopener">
                       <div class="card-group-image">
+                        ${a.vip ? '<span class="vip-badge">⭐ VIP</span>' : ''}
                         ${a.logo ? `<img src="${a.logo}" alt="${a.nome}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
                         <div class="card-group-placeholder" ${a.logo ? 'style="display:none"' : ''}>
                           <span>${a.nome.charAt(0).toUpperCase()}</span>
@@ -339,8 +340,9 @@ app.get('/', async (req, res) => {
           <div class="cards-scroll-container" id="parcerias-container">
             <div class="cards-scroll">
               ${parcerias.map(p => `
-                <a href="${p.link || '#'}" class="card-group" target="_blank" rel="noopener">
+                <a href="${p.link || '#'}" class="card-group${p.vip ? ' card-vip' : ''}" target="_blank" rel="noopener">
                   <div class="card-group-image">
+                    ${p.vip ? '<span class="vip-badge">⭐ VIP</span>' : ''}
                     ${p.logo ? `<img src="${p.logo}" alt="${p.nome}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
                     <div class="card-group-placeholder" ${p.logo ? 'style="display:none"' : ''}>
                       <span>${p.nome.charAt(0).toUpperCase()}</span>

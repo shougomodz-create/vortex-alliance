@@ -111,7 +111,15 @@ const createTables = async () => {
       created_at TIMESTAMP DEFAULT NOW()
     )
   `);
-  
+
+  // Migration: adicionar coluna vip se não existir
+  try {
+    await pool.query('ALTER TABLE parcerias ADD COLUMN vip INTEGER DEFAULT 0');
+  } catch (e) { /* coluna já existe */ }
+  try {
+    await pool.query('ALTER TABLE afiliados ADD COLUMN vip INTEGER DEFAULT 0');
+  } catch (e) { /* coluna já existe */ }
+
   await pool.query(`
     CREATE TABLE IF NOT EXISTS visits (
       id SERIAL PRIMARY KEY,

@@ -30,6 +30,7 @@ function openModal(t){
     document.getElementById('parceriaOrdem').value='0';
     document.getElementById('parceriaLogo').value='';
     document.getElementById('parceriaAtivo').checked=true;
+    document.getElementById('parceriaVip').checked=false;
     document.getElementById('parceriaPreview').innerHTML='';
     document.getElementById('modalParceriaTitle').textContent='Adicionar Parceria';
   }else if(t==='addAfiliado'){
@@ -45,6 +46,7 @@ function openModal(t){
     document.getElementById('afiliadoOrdem').value='0';
     document.getElementById('afiliadoLogo').value='';
     document.getElementById('afiliadoAtivo').checked=true;
+    document.getElementById('afiliadoVip').checked=false;
     document.getElementById('afiliadoPreview').innerHTML='';
     document.getElementById('modalAfiliadoTitle').textContent='Adicionar Afiliado';
   }
@@ -124,6 +126,7 @@ function editParceria(id){
     document.getElementById('parceriaOrdem').value=item.ordem||0;
     document.getElementById('parceriaLogo').value=item.logo||'';
     document.getElementById('parceriaAtivo').checked=!!item.ativo;
+    document.getElementById('parceriaVip').checked=!!item.vip;
     document.getElementById('modalParceriaTitle').textContent='Editar Parceria';
     openModal('addParceria');
   });
@@ -144,6 +147,7 @@ function editAfiliado(id){
     document.getElementById('afiliadoOrdem').value=item.ordem||0;
     document.getElementById('afiliadoLogo').value=item.logo||'';
     document.getElementById('afiliadoAtivo').checked=!!item.ativo;
+    document.getElementById('afiliadoVip').checked=!!item.vip;
     document.getElementById('modalAfiliadoTitle').textContent='Editar Afiliado';
     openModal('addAfiliado');
   });
@@ -180,6 +184,7 @@ function submitParceria(){
   fd.append('ordem',document.getElementById('parceriaOrdem').value);
   fd.append('logo',document.getElementById('parceriaLogo').value);
   fd.append('ativo',document.getElementById('parceriaAtivo').checked?'true':'false');
+  fd.append('vip',document.getElementById('parceriaVip').checked?'true':'false');
   var fi=document.getElementById('parceriaLogoFile');
   if(fi&&fi.files[0])fd.append('logoFile',fi.files[0]);
   fetch(id?'/admin/api/parcerias/'+id:'/admin/api/parcerias',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
@@ -199,6 +204,7 @@ function submitAfiliado(){
   fd.append('ordem',document.getElementById('afiliadoOrdem').value);
   fd.append('logo',document.getElementById('afiliadoLogo').value);
   fd.append('ativo',document.getElementById('afiliadoAtivo').checked?'true':'false');
+  fd.append('vip',document.getElementById('afiliadoVip').checked?'true':'false');
   var fi=document.getElementById('afiliadoLogoFile');
   if(fi&&fi.files[0])fd.append('logoFile',fi.files[0]);
   fetch(id?'/admin/api/afiliados/'+id:'/admin/api/afiliados',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
