@@ -710,6 +710,7 @@ a.card, a.card:hover, a.card:active {
    ======================================== */
 
 .card-group {
+  flex: 0 0 160px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
@@ -880,7 +881,7 @@ a.card, a.card:hover, a.card:active {
   margin-bottom: 2rem;
 }
 
-.cards-grid .card-group-desc {
+.cards-scroll .card-group-desc {
   display: none;
 }
 
@@ -994,6 +995,10 @@ a.card, a.card:hover, a.card:active {
   
   .section {
     padding: 3rem 1.5rem;
+  }
+  
+  .card-group {
+    flex: 0 0 150px;
   }
   
   .card-group-image {

@@ -228,6 +228,13 @@ app.get('/', async (req, res) => {
           <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>VORTEX'}</h1>
           <p class="hero-subtitle">${settings.hero_subtitle || 'Força, Honra e União.'}</p>
           <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
+          
+          <div class="hero-buttons">
+            <a href="#inicio" class="btn btn-primary" onclick="event.preventDefault();(document.getElementById('oficiais')||document.getElementById('afiliados')||document.getElementById('parcerias')).scrollIntoView({behavior:'smooth'})">
+              EXPLORAR A ALIANÇA
+              <span class="btn-arrow">↗</span>
+            </a>
+          </div>
 
           <div class="stats-row">
             <div class="stat-box">
@@ -255,7 +262,8 @@ app.get('/', async (req, res) => {
           </div>
           <h2 class="section-title">Liderança da Aliança</h2>
           <p class="section-desc">Conheça os oficiais que fazem parte da liderança da Aliança VORTEX.</p>
-          <div class="cards-grid">
+          <div class="cards-scroll-container">
+            <div class="cards-scroll">
               ${oficiais.map(o => `
                 <div class="card">
                   <div class="card-avatar">
@@ -271,6 +279,7 @@ app.get('/', async (req, res) => {
                   </div>
                 </div>
               `).join('')}
+            </div>
           </div>
         </section>
         ` : ''}
@@ -284,10 +293,16 @@ app.get('/', async (req, res) => {
           <h2 class="section-title">Grupos Afiliados</h2>
           <p class="section-desc">Veja os afiliados e grupos conectados à nossa comunidade.</p>
           
+          <div class="layout-toggle">
+            <button class="layout-btn active" onclick="setLayout('afiliados','horizontal')" data-layout="horizontal">➡ Horizontal</button>
+            <button class="layout-btn" onclick="setLayout('afiliados','vertical')" data-layout="vertical">⬇ Vertical</button>
+          </div>
+
           ${afiliadosCatKeys.map((key, idx) => `
             <div class="afiliados-category">
               <h3 class="category-title">${catDisplayMap[key]}</h3>
-              <div class="cards-grid">
+              <div class="cards-scroll-container" id="afiliados-${idx}-container">
+                <div class="cards-scroll">
                   ${afiliadosByCat[key].map(a => `
                     <a href="${a.link || '#'}" class="card-group" target="_blank" rel="noopener">
                       <div class="card-group-image">
@@ -307,6 +322,7 @@ app.get('/', async (req, res) => {
                       </div>
                     </a>
                   `).join('')}
+                </div>
               </div>
             </div>
           `).join('')}
@@ -321,8 +337,14 @@ app.get('/', async (req, res) => {
           </div>
           <h2 class="section-title">Aliados da Jornada</h2>
           <p class="section-desc">Encontre as parcerias que caminham junto com a Aliança VORTEX.</p>
-
-          <div class="cards-grid">
+          
+          <div class="layout-toggle">
+            <button class="layout-btn active" onclick="setLayout('parcerias','horizontal')" data-layout="horizontal">➡ Horizontal</button>
+            <button class="layout-btn" onclick="setLayout('parcerias','vertical')" data-layout="vertical">⬇ Vertical</button>
+          </div>
+          
+          <div class="cards-scroll-container" id="parcerias-container">
+            <div class="cards-scroll">
               ${parcerias.map(p => `
                 <a href="${p.link || '#'}" class="card-group" target="_blank" rel="noopener">
                   <div class="card-group-image">
@@ -343,6 +365,7 @@ app.get('/', async (req, res) => {
                   </div>
                 </a>
               `).join('')}
+            </div>
           </div>
         </section>
         ` : ''}
