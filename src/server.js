@@ -111,6 +111,9 @@ app.use('/admin/api', (req, res, next) => {
 // Arquivos estáticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Health check
+app.get('/health', (req, res) => res.json({ ok: true }));
+
 // Rotas
 const apiRoutes = require('./routes/api');
 const adminRoutes = require('./routes/admin');
@@ -392,13 +395,6 @@ app.get('/', async (req, res) => {
     res.status(500).send('Erro interno do servidor');
   }
 });
-
-// Criar pasta data se não existir
-const fs = require('fs');
-const dataDir = path.join(__dirname, '..', 'data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
 
 // Inicializar servidor
 async function startServer() {
