@@ -182,7 +182,7 @@ app.get('/', async (req, res) => {
     });
     
     // Ordem das categorias conhecidas + qualquer outra que tenha items
-    const catOrder = ['grupos afiliados', 'canais de zap', 'canais afiliados', 'sites'];
+    const catOrder = ['grupos afiliados', 'canais de zap', 'canais afiliados', 'bot de divulgação', 'canal telegram', 'sites'];
     const knownCats = catOrder.filter(c => afiliadosByCat[c] && afiliadosByCat[c].length > 0);
     const extraCats = Object.keys(afiliadosByCat).filter(c => catOrder.indexOf(c) === -1 && afiliadosByCat[c].length > 0);
     const afiliadosCatKeys = knownCats.concat(extraCats);
@@ -323,8 +323,8 @@ app.get('/', async (req, res) => {
           <p class="section-desc">Veja os afiliados e grupos conectados à nossa comunidade.</p>
           
           <div class="layout-toggle">
-            <button class="layout-btn active" onclick="setLayout('afiliados','horizontal')" data-layout="horizontal">➡</button>
-            <button class="layout-btn" onclick="setLayout('afiliados','vertical')" data-layout="vertical">⬇</button>
+            <button class="layout-btn active" onclick="setLayout('afiliados','horizontal')" data-layout="horizontal"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+            <button class="layout-btn" onclick="setLayout('afiliados','vertical')" data-layout="vertical"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></button>
           </div>
 
           ${afiliadosCatKeys.map((key, idx) => `
@@ -369,8 +369,8 @@ app.get('/', async (req, res) => {
           <p class="section-desc">Encontre as parcerias que caminham junto com a Aliança VORTEX.</p>
           
           <div class="layout-toggle">
-            <button class="layout-btn active" onclick="setLayout('parcerias','horizontal')" data-layout="horizontal">➡</button>
-            <button class="layout-btn" onclick="setLayout('parcerias','vertical')" data-layout="vertical">⬇</button>
+            <button class="layout-btn active" onclick="setLayout('parcerias','horizontal')" data-layout="horizontal"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+            <button class="layout-btn" onclick="setLayout('parcerias','vertical')" data-layout="vertical"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></button>
           </div>
           
           <div class="cards-scroll-container" id="parcerias-container">

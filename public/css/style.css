@@ -428,11 +428,14 @@ body::before {
   font-size: 0.85rem;
   cursor: pointer;
   transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .layout-btn:hover {
   border-color: var(--accent-purple);
-  color: var(--text-primary);
+  color: var(--accent-purple-light);
 }
 
 .layout-btn.active {
