@@ -168,6 +168,7 @@ body {
   position: fixed;
   top: 0; left: 0; bottom: 0;
   z-index: 100;
+  overflow: hidden;
 }
 
 .sidebar-header {
@@ -188,8 +189,8 @@ body {
   color: var(--accent-purple-light);
 }
 
-.sidebar-nav { flex: 1; padding: 0.75rem 0; overflow-y: auto; }
-.sidebar-footer { padding: 0.75rem 0; border-top: 1px solid var(--border-color); }
+.sidebar-nav { flex: 1; padding: 0.75rem 0; overflow-y: auto; min-height: 0; }
+.sidebar-footer { padding: 0.75rem 0; border-top: 1px solid var(--border-color); flex-shrink: 0; }
 
 .nav-item {
   display: flex;

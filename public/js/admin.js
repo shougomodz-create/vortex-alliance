@@ -55,7 +55,6 @@ function openModal(t){
     document.getElementById('oficialDiscord').value='';
     document.getElementById('oficialWhatsapp').value='';
     document.getElementById('oficialInstagram').value='';
-    document.getElementById('oficialOrdem').value='0';
     document.getElementById('oficialAvatar').value='';
     document.getElementById('oficialAtivo').checked=true;
     document.getElementById('modalOficialTitle').textContent='Adicionar Oficial';
@@ -67,9 +66,7 @@ function openModal(t){
     document.getElementById('parceriaLink').value='';
     document.getElementById('parceriaLinkInput').value='';
     document.getElementById('parceriaWhatsapp').value='';
-    document.getElementById('parceriaMembros').value='';
     document.getElementById('parceriaPlataforma').value='Discord';
-    document.getElementById('parceriaOrdem').value='0';
     document.getElementById('parceriaLogo').value='';
     document.getElementById('parceriaAtivo').checked=true;
     document.getElementById('parceriaVip').checked=false;
@@ -83,9 +80,7 @@ function openModal(t){
     document.getElementById('afiliadoLink').value='';
     document.getElementById('afiliadoLinkInput').value='';
     document.getElementById('afiliadoWhatsapp').value='';
-    document.getElementById('afiliadoMembros').value='';
     document.getElementById('afiliadoPlataforma').value='Discord';
-    document.getElementById('afiliadoOrdem').value='0';
     document.getElementById('afiliadoLogo').value='';
     document.getElementById('afiliadoAtivo').checked=true;
     document.getElementById('afiliadoVip').checked=false;
@@ -118,14 +113,12 @@ function fetchLinkPreview(url,type){
     if(d.descricao){var f=document.getElementById(type+'Descricao');if(f)f.value=d.descricao}
     if(d.logo){var f=document.getElementById(type+'Logo');if(f)f.value=d.logo}
     if(d.tipo){var f=document.getElementById(type+'Categoria');if(f)f.value=d.tipo}
-    if(d.membros){var f=document.getElementById(type+'Membros');if(f)f.value=d.membros}
     if(d.plataforma){var f=document.getElementById(type+'Plataforma');if(f)f.value=d.plataforma}
     var lnk=document.getElementById(type+'Link');
     if(lnk)lnk.value=url;
     var html='<div class="preview-card">';
     if(d.logo)html+='<img src="'+d.logo+'" class="preview-image" onerror="this.style.display=&quot;none&quot;">';
     html+='<div class="preview-info"><h4>'+d.nome+'</h4>';
-    if(d.membros)html+='<span>👥 '+Number(d.membros).toLocaleString('pt-BR')+' membros</span>';
     if(d.tipo)html+='<span>'+d.tipo+'</span>';
     if(d.plataforma)html+='<span>📡 '+d.plataforma+'</span>';
     if(d.descricao)html+='<p>'+d.descricao+'</p>';
@@ -155,7 +148,6 @@ function editOficial(id){
     document.getElementById('oficialDiscord').value=item.discord||'';
     document.getElementById('oficialWhatsapp').value=item.whatsapp||'';
     document.getElementById('oficialInstagram').value=item.instagram||'';
-    document.getElementById('oficialOrdem').value=item.ordem||0;
     document.getElementById('oficialAvatar').value=item.avatar||'';
     document.getElementById('oficialAtivo').checked=!!item.ativo;
     document.getElementById('modalOficialTitle').textContent='Editar Oficial';
@@ -173,9 +165,7 @@ function editParceria(id){
     document.getElementById('parceriaDescricao').value=item.descricao||'';
     document.getElementById('parceriaLink').value=item.link||'';
     document.getElementById('parceriaWhatsapp').value=item.whatsapp||'';
-    document.getElementById('parceriaMembros').value=item.membros||'';
     document.getElementById('parceriaPlataforma').value=item.plataforma||'Discord';
-    document.getElementById('parceriaOrdem').value=item.ordem||0;
     document.getElementById('parceriaLogo').value=item.logo||'';
     document.getElementById('parceriaAtivo').checked=!!item.ativo;
     document.getElementById('parceriaVip').checked=!!item.vip;
@@ -194,9 +184,7 @@ function editAfiliado(id){
     document.getElementById('afiliadoDescricao').value=item.descricao||'';
     document.getElementById('afiliadoLink').value=item.link||'';
     document.getElementById('afiliadoWhatsapp').value=item.whatsapp||'';
-    document.getElementById('afiliadoMembros').value=item.membros||'';
     document.getElementById('afiliadoPlataforma').value=item.plataforma||'Discord';
-    document.getElementById('afiliadoOrdem').value=item.ordem||0;
     document.getElementById('afiliadoLogo').value=item.logo||'';
     document.getElementById('afiliadoAtivo').checked=!!item.ativo;
     document.getElementById('afiliadoVip').checked=!!item.vip;
@@ -213,7 +201,6 @@ function submitOficial(){
   fd.append('discord',document.getElementById('oficialDiscord').value);
   fd.append('whatsapp',document.getElementById('oficialWhatsapp').value);
   fd.append('instagram',document.getElementById('oficialInstagram').value);
-  fd.append('ordem',document.getElementById('oficialOrdem').value);
   fd.append('avatar',document.getElementById('oficialAvatar').value);
   fd.append('ativo',document.getElementById('oficialAtivo').checked?'true':'false');
   var fi=document.getElementById('oficialAvatarFile');
@@ -232,10 +219,8 @@ function submitParceria(){
   fd.append('descricao',document.getElementById('parceriaDescricao').value);
   fd.append('link',document.getElementById('parceriaLink').value);
   fd.append('whatsapp',document.getElementById('parceriaWhatsapp').value);
-  fd.append('membros',document.getElementById('parceriaMembros').value);
   fd.append('plataforma',document.getElementById('parceriaPlataforma').value);
   fd.append('categoria',document.getElementById('parceriaCategoria').value);
-  fd.append('ordem',document.getElementById('parceriaOrdem').value);
   fd.append('logo',document.getElementById('parceriaLogo').value);
   fd.append('ativo',document.getElementById('parceriaAtivo').checked?'true':'false');
   fd.append('vip',document.getElementById('parceriaVip').checked?'true':'false');
@@ -255,10 +240,8 @@ function submitAfiliado(){
   fd.append('descricao',document.getElementById('afiliadoDescricao').value);
   fd.append('link',document.getElementById('afiliadoLink').value);
   fd.append('whatsapp',document.getElementById('afiliadoWhatsapp').value);
-  fd.append('membros',document.getElementById('afiliadoMembros').value);
   fd.append('plataforma',document.getElementById('afiliadoPlataforma').value);
   fd.append('categoria',document.getElementById('afiliadoCategoria').value);
-  fd.append('ordem',document.getElementById('afiliadoOrdem').value);
   fd.append('logo',document.getElementById('afiliadoLogo').value);
   fd.append('ativo',document.getElementById('afiliadoAtivo').checked?'true':'false');
   fd.append('vip',document.getElementById('afiliadoVip').checked?'true':'false');
@@ -277,6 +260,18 @@ function submitSettings(){
     if(r.ok)showToast('Configurações salvas!','success');
     else showToast('Erro ao salvar configurações.','error')
   });
+}
+
+function submitChangePassword(){
+  var current=document.getElementById('currentPassword').value;
+  var newU=document.getElementById('newUsername').value;
+  var newP=document.getElementById('newPassword').value;
+  if(!current){showToast('Digite a senha atual','warning');return}
+  if(!newU&&!newP){showToast('Preencha pelo menos um campo','warning');return}
+  fetch('/admin/api/change-password',{method:'POST',headers:{'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'},credentials:'include',body:JSON.stringify({currentPassword:current,newUsername:newU,newPassword:newP})}).then(function(r){return r.json()}).then(function(d){
+    if(d.success){showToast('Credenciais atualizadas! Faça login novamente.','success');setTimeout(function(){window.location.href='/admin/login'},2000)}
+    else showToast(d.error||'Erro ao atualizar','error')
+  }).catch(function(){showToast('Erro de conexão','error')});
 }
 
 var draggedItem=null;
