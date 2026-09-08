@@ -1,3 +1,45 @@
+// Toast System
+var toastContainer;
+function initToastContainer(){
+  if(!toastContainer){
+    toastContainer=document.createElement('div');
+    toastContainer.className='toast-container';
+    document.body.appendChild(toastContainer);
+  }
+}
+
+function showToast(message,type){
+  initToastContainer();
+  var icons={
+    success:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    error:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+    warning:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+  };
+  var toast=document.createElement('div');
+  toast.className='toast toast-'+type;
+  toast.innerHTML='<div class="toast-icon">'+icons[type]+'</div><span class="toast-message">'+message+'</span><button class="toast-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><div class="toast-progress"></div>';
+  toast.querySelector('.toast-close').addEventListener('click',function(){removeToast(toast)});
+  toastContainer.appendChild(toast);
+  setTimeout(function(){removeToast(toast)},3500);
+}
+
+function removeToast(toast){
+  if(!toast||!toast.parentNode)return;
+  toast.classList.add('toast-exit');
+  setTimeout(function(){if(toast.parentNode)toast.parentNode.removeChild(toast)},300);
+}
+
+function showConfirm(message,onConfirm){
+  var overlay=document.createElement('div');
+  overlay.className='confirm-overlay';
+  overlay.innerHTML='<div class="confirm-box"><div class="confirm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><p class="confirm-message">'+message+'</p><div class="confirm-actions"><button class="btn btn-secondary" id="confirmCancel">Cancelar</button><button class="btn btn-primary" id="confirmOk">Confirmar</button></div></div>';
+  document.body.appendChild(overlay);
+  overlay.querySelector('#confirmCancel').addEventListener('click',function(){document.body.removeChild(overlay)});
+  overlay.querySelector('#confirmOk').addEventListener('click',function(){document.body.removeChild(overlay);if(onConfirm)onConfirm()});
+  overlay.addEventListener('click',function(e){if(e.target===overlay)document.body.removeChild(overlay)});
+}
+
 function logout(){fetch('/admin/logout',{method:'POST',headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(){window.location.href='/admin/login'})}
 function openModal(t){
   var map={'addOficial':'modalOficial','addParceria':'modalParceria','addAfiliado':'modalAfiliado'};
@@ -93,8 +135,12 @@ function fetchLinkPreview(url,type){
 }
 
 function deleteItem(type,id){
-  if(!confirm('Tem certeza que deseja excluir?'))return;
-  fetch('/admin/api/'+type+'/'+id,{method:'DELETE',headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload()});
+  showConfirm('Tem certeza que deseja excluir este item?',function(){
+    fetch('/admin/api/'+type+'/'+id,{method:'DELETE',headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){
+      if(r.ok){showToast('Item excluído com sucesso!','success');setTimeout(function(){window.location.reload()},1000)}
+      else showToast('Erro ao excluir item.','error')
+    });
+  });
 }
 
 function editOficial(id){
@@ -172,7 +218,10 @@ function submitOficial(){
   fd.append('ativo',document.getElementById('oficialAtivo').checked?'true':'false');
   var fi=document.getElementById('oficialAvatarFile');
   if(fi&&fi.files[0])fd.append('avatarFile',fi.files[0]);
-  fetch(id?'/admin/api/oficiais/'+id:'/admin/api/oficiais',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
+  fetch(id?'/admin/api/oficiais/'+id:'/admin/api/oficiais',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){
+    if(r.ok){showToast(id?'Oficial atualizado!':'Oficial adicionado!','success');setTimeout(function(){window.location.reload()},1000)}
+    else showToast('Erro ao salvar oficial.','error')
+  });
 }
 
 function submitParceria(){
@@ -192,7 +241,10 @@ function submitParceria(){
   fd.append('vip',document.getElementById('parceriaVip').checked?'true':'false');
   var fi=document.getElementById('parceriaLogoFile');
   if(fi&&fi.files[0])fd.append('logoFile',fi.files[0]);
-  fetch(id?'/admin/api/parcerias/'+id:'/admin/api/parcerias',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
+  fetch(id?'/admin/api/parcerias/'+id:'/admin/api/parcerias',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){
+    if(r.ok){showToast(id?'Parceria atualizada!':'Parceria adicionada!','success');setTimeout(function(){window.location.reload()},1000)}
+    else showToast('Erro ao salvar parceria.','error')
+  });
 }
 
 function submitAfiliado(){
@@ -212,13 +264,19 @@ function submitAfiliado(){
   fd.append('vip',document.getElementById('afiliadoVip').checked?'true':'false');
   var fi=document.getElementById('afiliadoLogoFile');
   if(fi&&fi.files[0])fd.append('logoFile',fi.files[0]);
-  fetch(id?'/admin/api/afiliados/'+id:'/admin/api/afiliados',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
+  fetch(id?'/admin/api/afiliados/'+id:'/admin/api/afiliados',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){
+    if(r.ok){showToast(id?'Afiliado atualizado!':'Afiliado adicionado!','success');setTimeout(function(){window.location.reload()},1000)}
+    else showToast('Erro ao salvar afiliado.','error')
+  });
 }
 
 function submitSettings(){
   var fd={};
   document.querySelectorAll('[id^="setting_"]').forEach(function(i){fd[i.id]=i.value});
-  fetch('/admin/api/settings',{method:'POST',headers:{'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'},credentials:'include',body:JSON.stringify(fd)}).then(function(r){if(r.ok)alert('Salvo!');else alert('Erro')});
+  fetch('/admin/api/settings',{method:'POST',headers:{'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'},credentials:'include',body:JSON.stringify(fd)}).then(function(r){
+    if(r.ok)showToast('Configurações salvas!','success');
+    else showToast('Erro ao salvar configurações.','error')
+  });
 }
 
 var draggedItem=null;

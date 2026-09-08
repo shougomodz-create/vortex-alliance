@@ -15,7 +15,10 @@ const getTurnstileSitekey = () => process.env.TURNSTILE_SITEKEY || '0x4AAAAAACzv
 async function verifyTurnstile(token, ip) {
   const secret = getTurnstileSecret();
   if (!secret) return true;
-  if (!token) return false;
+  if (!token) {
+    console.log('[TURNSTILE] Token não fornecido');
+    return false;
+  }
   try {
     const formData = new URLSearchParams();
     formData.append('secret', secret);
@@ -25,9 +28,11 @@ async function verifyTurnstile(token, ip) {
       timeout: 10000
     });
     console.log('[TURNSTILE] Result:', JSON.stringify(res.data));
-    return res.data.success === true;
+    if (res.data.success) return true;
+    console.log('[TURNSTILE] Falha na verificação:', res.data['error-codes'] || 'unknown');
+    return false;
   } catch (e) {
-    console.error('[TURNSTILE] Erro:', e.message);
+    console.error('[TURNSTILE] Erro na requisição:', e.message);
     return false;
   }
 }
@@ -43,8 +48,8 @@ router.get('/login', (req, res) => {
   const secret = getTurnstileSecret();
   const sitekey = getTurnstileSitekey();
   console.log('[LOGIN] Turnstile Secret exists:', !!secret, 'Sitekey:', sitekey);
-  const turnstileHtml = secret ? `<div class="form-group"><div class="cf-turnstile" data-sitekey="${sitekey}" data-theme="dark"></div></div>` : '';
-  res.send(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login - VORTEX</title><link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/admin.css"></head><body class="login-page"><div class="login-container"><div class="login-card"><div class="login-header"><svg class="login-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8b00ff" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg><h1>ALIANÇA VORTEX</h1><p>Painel Administrativo</p></div><form id="loginForm" class="login-form"><div class="form-group"><label for="username">Usuário</label><input type="text" id="username" name="username" required placeholder="Digite seu usuário"></div><div class="form-group"><label for="password">Senha</label><input type="password" id="password" name="password" required placeholder="Digite sua senha"></div>${turnstileHtml}<div id="loginError" class="error-message" style="display:none;"></div><button type="submit" class="btn btn-primary btn-full" id="loginBtn">ENTRAR</button></form><a href="/" class="back-link">← Voltar ao site</a></div></div><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script><script>document.getElementById("loginForm").addEventListener("submit",function(e){e.preventDefault();var er=document.getElementById("loginError");er.style.display="none";var btn=document.getElementById("loginBtn");btn.disabled=true;btn.textContent="ENTRANDO...";var turnstileToken="";var tw=document.querySelector('[name="cf-turnstile-response"]');if(tw)turnstileToken=tw.value;if(${secret ? 'true' : 'false'} && !turnstileToken){er.textContent="Confirme o captcha";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR";return}fetch("/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"include",body:JSON.stringify({username:document.getElementById("username").value,password:document.getElementById("password").value,turnstileToken:turnstileToken})}).then(function(r){return r.json()}).then(function(d){if(d.success){window.location.href="/admin"}else{er.textContent=d.error||"Erro ao fazer login";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR"}}).catch(function(){er.textContent="Erro de conexão";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR"})});</script></body></html>`);
+  const turnstileHtml = secret ? `<div class="form-group"><div class="cf-turnstile" data-sitekey="${sitekey}" data-theme="dark" data-callback="onTurnstileSuccess"></div></div>` : '';
+  res.send(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login - VORTEX</title><link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/admin.css"></head><body class="login-page"><div class="login-container"><div class="login-card"><div class="login-header"><svg class="login-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8b00ff" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg><h1>ALIANÇA VORTEX</h1><p>Painel Administrativo</p></div><form id="loginForm" class="login-form"><div class="form-group"><label for="username">Usuário</label><input type="text" id="username" name="username" required placeholder="Digite seu usuário"></div><div class="form-group"><label for="password">Senha</label><input type="password" id="password" name="password" required placeholder="Digite sua senha"></div>${turnstileHtml}<div id="loginError" class="error-message" style="display:none;"></div><button type="submit" class="btn btn-primary btn-full" id="loginBtn">ENTRAR</button></form><a href="/" class="back-link">← Voltar ao site</a></div></div><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script><script>var turnstileReady=false;function onTurnstileSuccess(){turnstileReady=true}window.addEventListener('load',function(){setTimeout(function(){if(typeof turnstile!=='undefined')turnstileReady=true},3000)});document.getElementById("loginForm").addEventListener("submit",function(e){e.preventDefault();var er=document.getElementById("loginError");er.style.display="none";var btn=document.getElementById("loginBtn");btn.disabled=true;btn.textContent="ENTRANDO...";var turnstileToken="";var tw=document.querySelector('[name="cf-turnstile-response"]');if(tw)turnstileToken=tw.value;if(${secret ? 'true' : 'false'} && !turnstileToken){er.textContent="Aguarde o captcha carregar ou clique nele novamente";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR";if(typeof turnstile!=='undefined'){try{turnstile.reset()}catch(ex){}}return}fetch("/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"include",body:JSON.stringify({username:document.getElementById("username").value,password:document.getElementById("password").value,turnstileToken:turnstileToken})}).then(function(r){return r.json()}).then(function(d){if(d.success){window.location.href="/admin"}else{er.textContent=d.error||"Erro ao fazer login";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR";if(typeof turnstile!=='undefined'){try{turnstile.reset()}catch(ex){}}}}).catch(function(){er.textContent="Erro de conexão";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR"})});</script></body></html>`);
 });
 
 router.post('/login', async (req, res) => {
@@ -55,11 +60,16 @@ router.post('/login', async (req, res) => {
     console.log('[LOGIN] Tentativa de login: ' + username + ' via ' + ip);
     
     // Verificar Turnstile se configurado
-    if (getTurnstileSecret()) {
+    const turnstileSecret = getTurnstileSecret();
+    if (turnstileSecret) {
+      if (!turnstileToken) {
+        console.log('[LOGIN] Turnstile token ausente para: ' + username);
+        return res.status(401).json({ error: 'Captcha não verificado. Clique no captcha e tente novamente.' });
+      }
       const turnstileOk = await verifyTurnstile(turnstileToken, ip);
       if (!turnstileOk) {
         console.log('[LOGIN] Turnstile falhou para: ' + username);
-        return res.status(401).json({ error: 'Captcha inválido. Tente novamente.' });
+        return res.status(401).json({ error: 'Captcha inválido ou expirado. Clique no captcha novamente.' });
       }
     }
     

@@ -626,6 +626,182 @@ body {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+@keyframes progressShrink { from { width: 100%; } to { width: 0%; } }
+
+/* ========================================
+   TOAST / NOTIFICAÇÕES
+   ======================================== */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  animation: slideIn 0.3s ease;
+  pointer-events: all;
+  min-width: 280px;
+  max-width: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.toast.toast-exit {
+  animation: slideOut 0.3s ease forwards;
+}
+
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.toast-message {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.toast-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.toast-close:hover { color: var(--text-primary); }
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  animation: progressShrink 3s linear forwards;
+}
+
+.toast.toast-success { border-left: 3px solid #22c55e; }
+.toast.toast-success .toast-icon { color: #22c55e; }
+.toast.toast-success .toast-progress { background: #22c55e; }
+
+.toast.toast-error { border-left: 3px solid #ef4444; }
+.toast.toast-error .toast-icon { color: #ef4444; }
+.toast.toast-error .toast-progress { background: #ef4444; }
+
+.toast.toast-info { border-left: 3px solid var(--accent-purple); }
+.toast.toast-info .toast-icon { color: var(--accent-purple-light); }
+.toast.toast-info .toast-progress { background: var(--accent-purple); }
+
+.toast.toast-warning { border-left: 3px solid #f59e0b; }
+.toast.toast-warning .toast-icon { color: #f59e0b; }
+.toast.toast-warning .toast-progress { background: #f59e0b; }
+
+/* Confirm Modal */
+.confirm-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.confirm-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+}
+
+.confirm-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(239,68,68,0.1);
+  border-radius: 50%;
+  color: #ef4444;
+}
+
+.confirm-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.confirm-message {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.confirm-actions .btn {
+  min-width: 100px;
+}
+
+@media (max-width: 768px) {
+  .toast-container {
+    top: auto;
+    bottom: 1rem;
+    right: 0.5rem;
+    left: 0.5rem;
+  }
+
+  .toast {
+    min-width: auto;
+    max-width: 100%;
+  }
+}
 
 /* ========================================
    RESPONSIVO TABLET (max-width: 1024px)
