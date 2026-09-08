@@ -445,7 +445,7 @@ app.get('/', async (req, res) => {
               <h3>FAÇA PARTE DA ALIANÇA</h3>
               <p>Tem um grupo e quer crescer junto com a gente? Seja um afiliado da Aliança Vortex.</p>
             </div>
-            <a href="${settings.whatsapp_link || '#'}" class="btn btn-primary" target="_blank">SOLICITAR AFILIAÇÃO</a>
+            <a href="${settings.whatsapp_link ? settings.whatsapp_link + (settings.whatsapp_link.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent('Olá! Gostaria de solicitar uma afiliação com a Aliança VORTEX.') : '#'}" class="btn btn-primary" target="_blank">SOLICITAR AFILIAÇÃO</a>
           </div>
         </section>
       </main>
