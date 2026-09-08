@@ -143,6 +143,28 @@ router.get('/configuracoes', authMiddleware, async (req, res) => {
 });
 
 // ===== API CRUD =====
+// GET - Listar todos (admin, inclui inativos)
+router.get('/api/oficiais', authMiddleware, async (req, res) => {
+  try {
+    const data = await database.all('SELECT * FROM oficiais ORDER BY ordem ASC');
+    res.json(data);
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
+router.get('/api/parcerias', authMiddleware, async (req, res) => {
+  try {
+    const data = await database.all('SELECT * FROM parcerias ORDER BY ordem ASC');
+    res.json(data);
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
+router.get('/api/afiliados', authMiddleware, async (req, res) => {
+  try {
+    const data = await database.all('SELECT * FROM afiliados ORDER BY ordem ASC');
+    res.json(data);
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
 router.post('/api/oficiais', authMiddleware, upload.single('avatarFile'), async (req, res) => {
   try {
     const { nome, cargo, descricao, discord, whatsapp, instagram, ordem, ativo, avatar } = req.body;

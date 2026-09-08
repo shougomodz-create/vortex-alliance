@@ -93,9 +93,10 @@ function deleteItem(type,id){
 }
 
 function editOficial(id){
-  fetch('/api/oficiais').then(function(r){return r.json()}).then(function(list){
+  fetch('/admin/api/oficiais').then(function(r){return r.json()}).then(function(list){
     var item=null;for(var i=0;i<list.length;i++){if(list[i].id===id){item=list[i];break}}
     if(!item)return;
+    openModal('addOficial');
     document.getElementById('oficialId').value=item.id;
     document.getElementById('oficialNome').value=item.nome||'';
     document.getElementById('oficialCargo').value=item.cargo||'';
@@ -107,14 +108,14 @@ function editOficial(id){
     document.getElementById('oficialAvatar').value=item.avatar||'';
     document.getElementById('oficialAtivo').checked=!!item.ativo;
     document.getElementById('modalOficialTitle').textContent='Editar Oficial';
-    openModal('addOficial');
   });
 }
 
 function editParceria(id){
-  fetch('/api/parcerias').then(function(r){return r.json()}).then(function(list){
+  fetch('/admin/api/parcerias').then(function(r){return r.json()}).then(function(list){
     var item=null;for(var i=0;i<list.length;i++){if(list[i].id===id){item=list[i];break}}
     if(!item)return;
+    openModal('addParceria');
     document.getElementById('parceriaId').value=item.id;
     document.getElementById('parceriaNome').value=item.nome||'';
     document.getElementById('parceriaCategoria').value=item.categoria||item.tipo||'';
@@ -128,14 +129,14 @@ function editParceria(id){
     document.getElementById('parceriaAtivo').checked=!!item.ativo;
     document.getElementById('parceriaVip').checked=!!item.vip;
     document.getElementById('modalParceriaTitle').textContent='Editar Parceria';
-    openModal('addParceria');
   });
 }
 
 function editAfiliado(id){
-  fetch('/api/afiliados').then(function(r){return r.json()}).then(function(list){
+  fetch('/admin/api/afiliados').then(function(r){return r.json()}).then(function(list){
     var item=null;for(var i=0;i<list.length;i++){if(list[i].id===id){item=list[i];break}}
     if(!item)return;
+    openModal('addAfiliado');
     document.getElementById('afiliadoId').value=item.id;
     document.getElementById('afiliadoNome').value=item.nome||'';
     document.getElementById('afiliadoCategoria').value=item.categoria||item.tipo||'';
@@ -149,7 +150,6 @@ function editAfiliado(id){
     document.getElementById('afiliadoAtivo').checked=!!item.ativo;
     document.getElementById('afiliadoVip').checked=!!item.vip;
     document.getElementById('modalAfiliadoTitle').textContent='Editar Afiliado';
-    openModal('addAfiliado');
   });
 }
 
