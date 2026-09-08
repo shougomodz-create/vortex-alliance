@@ -196,6 +196,25 @@ app.get('/', async (req, res) => {
       <meta name="theme-color" content="#0a0a0a">
       <meta name="description" content="${settings.description || 'Aliança VORTEX — Força, Honra e União.'}">
       <title>${settings.site_title || 'ALIANÇA VORTEX'}</title>
+      
+      <!-- Favicon -->
+      <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+      <link rel="apple-touch-icon" href="/images/logo-vortex.svg">
+      
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="https://vortex-alliance.onrender.com/">
+      <meta property="og:title" content="${settings.site_title || 'ALIANÇA VORTEX'}">
+      <meta property="og:description" content="${settings.description || 'Aliança VORTEX — Força, Honra e União.'}">
+      <meta property="og:image" content="${settings.logo || 'https://vortex-alliance.onrender.com/images/logo-vortex.svg'}">
+      
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:url" content="https://vortex-alliance.onrender.com/">
+      <meta name="twitter:title" content="${settings.site_title || 'ALIANÇA VORTEX'}">
+      <meta name="twitter:description" content="${settings.description || 'Aliança VORTEX — Força, Honra e União.'}">
+      <meta name="twitter:image" content="${settings.logo || 'https://vortex-alliance.onrender.com/images/logo-vortex.svg'}">
+      
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Raleway:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
