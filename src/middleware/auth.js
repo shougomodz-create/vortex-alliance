@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const database = require('../database');
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   let token = null;
   
   if (req.cookies && req.cookies.token) {
@@ -23,7 +23,7 @@ const authMiddleware = (req, res, next) => {
   try {
     const jwtSecret = process.env.JWT_SECRET || 'vtx-fallback-secret-key-production';
     const decoded = jwt.verify(token, jwtSecret);
-    const user = database.get('SELECT id, username, role FROM users WHERE id = ?', [decoded.userId]);
+    const user = await database.get('SELECT id, username, role FROM users WHERE id = $1', [decoded.userId]);
     
     if (!user) {
       res.clearCookie('token');
