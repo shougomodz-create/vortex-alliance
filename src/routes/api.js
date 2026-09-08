@@ -66,6 +66,22 @@ router.get('/preview', (req, res) => {
         }
       }
 
+      // Telegram subscribers
+      if (!result.membros) {
+        const tgSubs = html.match(/([\d.,]+)\s*(?:subscribers|inscritos|assinantes)/i);
+        if (tgSubs) {
+          result.membros = parseMemberCount(tgSubs[1]);
+        }
+      }
+
+      // WhatsApp Channel followers
+      if (!result.membros) {
+        const wcFollowers = html.match(/([\d.,]+)\s*(?:followers|seguidores|participantes)/i);
+        if (wcFollowers) {
+          result.membros = parseMemberCount(wcFollowers[1]);
+        }
+      }
+
       // Generic: "Xk members" / "X mil membros"
       if (!result.membros) {
         const generic = html.match(/([\d.,]+[kKmM]?)\s*(?:membros|members|users|usuários|pessoas|people)/i);
@@ -156,7 +172,10 @@ function extractFavicon(html, baseUrl) {
 
 function detectType(url, platform) {
   if (platform === 'discord' || url.includes('discord')) return 'Discord Server';
-  if (platform === 'whatsapp' || url.includes('whatsapp') || url.includes('wa.me')) return 'WhatsApp Group';
+  if (platform === 'canal_whatsapp' || url.includes('whatsapp.com/channel')) return 'Canal WhatsApp';
+  if (platform === 'whatsapp' || url.includes('wa.me') || url.includes('whatsapp.com')) return 'WhatsApp Group';
+  if (platform === 'canal_telegram' || (url.includes('t.me') && url.includes('/s/'))) return 'Canal Telegram';
+  if (platform === 'bot_telegram' || (url.includes('t.me') && !url.includes('/s/'))) return 'Bot Telegram';
   if (platform === 'instagram' || url.includes('instagram')) return 'Instagram';
   if (platform === 'youtube' || url.includes('youtube')) return 'YouTube';
   if (url.includes('tiktok')) return 'TikTok';
@@ -177,10 +196,14 @@ function extractNameFromUrl(url) {
 function detectPlatformFromUrl(url) {
   const u = url.toLowerCase();
   if (u.includes('discord')) return 'Discord';
+  if (u.includes('whatsapp.com/channel')) return 'Canal WhatsApp';
   if (u.includes('wa.me') || u.includes('whatsapp')) return 'WhatsApp';
   if (u.includes('instagram')) return 'Instagram';
   if (u.includes('youtube')) return 'YouTube';
-  if (u.includes('telegram')) return 'Telegram';
+  if (u.includes('t.me')) {
+    if (u.includes('/s/')) return 'Canal Telegram';
+    return 'Bot Telegram';
+  }
   return 'Outro';
 }
 

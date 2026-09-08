@@ -62,7 +62,12 @@ function fetchLinkPreview(url,type){
   pv.innerHTML='<p>Carregando...</p>';
   var platform='web';
   if(url.indexOf('discord')>-1)platform='discord';
-  else if(url.indexOf('wa.me')>-1||url.indexOf('whatsapp')>-1)platform='whatsapp';
+  else if(url.indexOf('whatsapp.com/channel')>-1)platform='canal_whatsapp';
+  else if(url.indexOf('wa.me')>-1||url.indexOf('whatsapp.com')>-1)platform='whatsapp';
+  else if(url.indexOf('t.me/')>-1){
+    if(url.indexOf('/s/')>-1||url.indexOf('t.me/')>-1)platform='canal_telegram';
+    else platform='bot_telegram';
+  }
   else if(url.indexOf('instagram')>-1)platform='instagram';
   else if(url.indexOf('youtube')>-1)platform='youtube';
   fetch('/api/preview?url='+encodeURIComponent(url)+'&platform='+platform).then(function(r){return r.json()}).then(function(d){
