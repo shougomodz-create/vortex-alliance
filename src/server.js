@@ -240,30 +240,46 @@ app.get('/', async (req, res) => {
 
       <main>
         <section id="inicio" class="hero">
-          <div class="hero-badge">
-            <span class="badge-icon">✓</span>
-            ALIANÇA OFICIAL
+          <div class="hero-content">
+            <div class="hero-text">
+              <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>VORTEX'}</h1>
+              <p class="hero-subtitle">${settings.hero_subtitle || 'Força, Honra e União.'}</p>
+              <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
+              <div class="hero-buttons-row">
+                <a href="#afiliados" class="btn btn-primary">VER AFILIADOS ↗</a>
+                ${settings.discord_link ? `<a href="${settings.discord_link}" class="btn btn-outline" target="_blank">⚔ ENTRAR NO DISCORD</a>` : ''}
+              </div>
+            </div>
+            <div class="hero-visual">
+              <div class="hero-circle">
+                <div class="hero-circle-inner">⚔</div>
+              </div>
+            </div>
           </div>
-          <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>VORTEX'}</h1>
-          <p class="hero-subtitle">${settings.hero_subtitle || 'Força, Honra e União.'}</p>
-          <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
 
           <div class="stats-row">
             <div class="stat-box">
-              <span class="stat-number">${oficiaisCount}</span>
-              <span class="stat-label">OFICIAIS</span>
+              <div class="stat-icon">🛡️</div>
+              <div class="stat-info">
+                <span class="stat-number">${oficiaisCount}</span>
+                <span class="stat-label">OFICIAIS</span>
+              </div>
             </div>
             <div class="stat-box">
-              <span class="stat-number">${parceriasCount}</span>
-              <span class="stat-label">PARCERIAS</span>
+              <div class="stat-icon">🤝</div>
+              <div class="stat-info">
+                <span class="stat-number">${parceriasCount}</span>
+                <span class="stat-label">PARCERIAS</span>
+              </div>
             </div>
             <div class="stat-box">
-              <span class="stat-number">${afiliadosCount}</span>
-              <span class="stat-label">AFILIADOS</span>
+              <div class="stat-icon">👥</div>
+              <div class="stat-info">
+                <span class="stat-number">${afiliadosCount}</span>
+                <span class="stat-label">AFILIADOS</span>
+              </div>
             </div>
           </div>
-
-
         </section>
 
         ${oficiais.length > 0 ? `
@@ -384,19 +400,52 @@ app.get('/', async (req, res) => {
         </section>
         ` : ''}
 
-        ${settings.whatsapp_link ? `
-        <section class="cta-section">
-          <a href="${settings.whatsapp_link}" class="btn btn-primary btn-large" target="_blank">
-            SOLICITAR PARCERIA
-            <span class="btn-arrow">↗</span>
-          </a>
+        <section class="sobre-section">
+          <h2 class="sobre-title">SOBRE A ALIANÇA</h2>
+          <p class="sobre-desc">Muito mais que uma conexão, uma verdadeira aliança.</p>
+          <div class="sobre-grid">
+            <div class="sobre-card">
+              <div class="sobre-icon">👥</div>
+              <h3>UNIÃO</h3>
+              <p>Conectamos grupos e comunidades com um objetivo em comum.</p>
+            </div>
+            <div class="sobre-card">
+              <div class="sobre-icon">🤝</div>
+              <h3>PARCERIAS</h3>
+              <p>Parcerias fortes que geram visibilidade, crescimento e oportunidades.</p>
+            </div>
+            <div class="sobre-card">
+              <div class="sobre-icon">🛡️</div>
+              <h3>CONFIANÇA</h3>
+              <p>Segurança e compromisso com todos os afiliados da aliança.</p>
+            </div>
+          </div>
         </section>
-        ` : ''}
+
+        <section class="cta-section">
+          <div class="cta-card">
+            <div class="cta-text">
+              <h3>FAÇA PARTE DA ALIANÇA</h3>
+              <p>Tem um grupo e quer crescer junto com a gente? Seja um afiliado da Aliança Vortex.</p>
+            </div>
+            <a href="${settings.whatsapp_link || '#'}" class="btn btn-primary" target="_blank">SOLICITAR AFILIAÇÃO ↗</a>
+          </div>
+        </section>
       </main>
 
       <footer class="footer">
-        <p>${settings.footer_text || 'VORTEX © 2026 — Todos os direitos reservados.'}</p>
-
+        <div class="footer-content">
+          <div class="footer-logo">
+            <span class="logo-icon">⚔</span>
+            <span class="logo-text">ALIANÇA VORTEX</span>
+          </div>
+          <p class="footer-copy">${settings.footer_text || '© 2026 Aliança Vortex. Todos os direitos reservados.'}</p>
+          <div class="footer-social">
+            ${settings.whatsapp_link ? `<a href="${settings.whatsapp_link}" target="_blank" class="footer-social-link">📱</a>` : ''}
+            ${settings.instagram_link ? `<a href="${settings.instagram_link}" target="_blank" class="footer-social-link">📸</a>` : ''}
+            ${settings.discord_link ? `<a href="${settings.discord_link}" target="_blank" class="footer-social-link">💬</a>` : ''}
+          </div>
+        </div>
       </footer>
 
       <script src="/js/main.js"></script>
