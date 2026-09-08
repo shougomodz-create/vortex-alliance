@@ -10,8 +10,12 @@ const DB_PATH = path.resolve(__dirname, '..', process.env.DB_PATH || './data/vor
 const init = async () => {
   const dbDir = path.dirname(DB_PATH);
   
+  console.log('[DB] Caminho do banco: ' + DB_PATH);
+  console.log('[DB] Diretório: ' + dbDir);
+  
   if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true });
+    console.log('[DB] Diretório criado');
   }
   
   SQL = await initSqlJs();
@@ -20,15 +24,17 @@ const init = async () => {
   if (fs.existsSync(DB_PATH)) {
     const fileBuffer = fs.readFileSync(DB_PATH);
     db = new SQL.Database(fileBuffer);
+    console.log('[DB] Banco existente carregado');
   } else {
     db = new SQL.Database();
+    console.log('[DB] Novo banco criado');
   }
   
   createTables();
   saveDatabase();
   seedDefaultData();
   
-  console.log('✓ Banco de dados inicializado');
+  console.log('✓ Banco de dados inicializado em: ' + DB_PATH);
 };
 
 const createTables = () => {

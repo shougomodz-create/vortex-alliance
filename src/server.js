@@ -222,12 +222,9 @@ app.get('/', async (req, res) => {
           <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
           
           <div class="hero-buttons">
-            <a href="#oficiais" class="btn btn-primary">
+            <a href="#oficiais" class="btn btn-primary" onclick="event.preventDefault();document.getElementById('oficiais').scrollIntoView({behavior:'smooth'})">
               EXPLORAR A ALIANÇA
               <span class="btn-arrow">↗</span>
-            </a>
-            <a href="/admin" class="btn btn-secondary">
-              ACESSAR PAINEL
             </a>
           </div>
 
