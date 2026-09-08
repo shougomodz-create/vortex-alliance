@@ -78,6 +78,28 @@ body {
   color: var(--text-secondary);
 }
 
+.form-group label:has(input[type="checkbox"]) {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-transform: none;
+  font-size: 0.8rem;
+}
+
+.form-group label:has(input[type="checkbox"]) input[type="checkbox"] {
+  width: auto;
+  accent-color: var(--accent-red);
+}
+
+.checkbox-row {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.75rem 0;
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
 .form-group input,
 .form-group textarea,
 .form-group select {
@@ -323,7 +345,7 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
-  min-width: 600px;
+  min-width: 550px;
 }
 
 .data-table th, .data-table td {
@@ -331,11 +353,12 @@ body {
   text-align: left;
   border-bottom: 1px solid var(--border-color);
   white-space: nowrap;
+  font-size: 0.85rem;
 }
 
 .data-table th {
   background: var(--bg-secondary);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -372,8 +395,20 @@ body {
 
 .badge-success { background: rgba(34,197,94,0.1); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
 .badge-danger { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
-.badge-vip { background: rgba(255,215,0,0.15); color: #ffd700; border: 1px solid rgba(255,215,0,0.4); }
-.badge-secondary { background: rgba(100,100,100,0.1); color: #888; border: 1px solid rgba(100,100,100,0.3); }
+.badge-vip { 
+  background: rgba(255,215,0,0.15); 
+  color: #ffd700; 
+  border: 1px solid rgba(255,215,0,0.4);
+  font-size: 0.6rem;
+  padding: 0.15rem 0.5rem;
+}
+.badge-secondary { 
+  background: rgba(100,100,100,0.08); 
+  color: #666; 
+  border: 1px solid rgba(100,100,100,0.2);
+  font-size: 0.6rem;
+  padding: 0.15rem 0.5rem;
+}
 
 /* ========================================
    BOTÕES
