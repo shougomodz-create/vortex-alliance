@@ -6,25 +6,38 @@ const init = async () => {
   const connectionString = process.env.DATABASE_URL;
   
   if (!connectionString) {
-    throw new Error('DATABASE_URL não configurada. Adicione a connection string do Neon nas env vars do Render.');
+    console.error('⚠ DATABASE_URL não configurada! O site vai funcionar mas sem persistência.');
+    return;
   }
   
   console.log('[DB] Conectando ao Neon PostgreSQL...');
   
   pool = new Pool({
     connectionString,
-    ssl: { rejectUnauthorized: false }
+    ssl: { rejectUnauthorized: false },
+    max: 5,
+    idleTimeoutMillis: 10000,
+    connectionTimeoutMillis: 10000
   });
   
   // Testar conexão
-  const client = await pool.connect();
-  console.log('✓ Conectado ao Neon PostgreSQL');
-  client.release();
+  try {
+    const client = await pool.connect();
+    console.log('✓ Conectado ao Neon PostgreSQL');
+    client.release();
+  } catch (err) {
+    console.error('✗ Erro ao conectar no Neon:', err.message);
+    pool = null;
+    return;
+  }
   
-  await createTables();
-  await seedDefaultData();
-  
-  console.log('✓ Banco de dados inicializado');
+  try {
+    await createTables();
+    await seedDefaultData();
+    console.log('✓ Banco de dados inicializado');
+  } catch (err) {
+    console.error('✗ Erro ao criar tabelas:', err.message);
+  }
 };
 
 const createTables = async () => {
@@ -151,16 +164,19 @@ const seedDefaultData = async () => {
 
 // Helper functions para operações comuns
 const all = async (sql, params = []) => {
+  if (!pool) return [];
   const result = await pool.query(sql, params);
   return result.rows;
 };
 
 const get = async (sql, params = []) => {
+  if (!pool) return null;
   const result = await pool.query(sql, params);
   return result.rows.length > 0 ? result.rows[0] : null;
 };
 
 const run = async (sql, params = []) => {
+  if (!pool) return { changes: 0, lastInsertRowid: null };
   const result = await pool.query(sql, params);
   return { 
     changes: result.rowCount, 
