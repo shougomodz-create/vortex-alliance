@@ -1,4 +1,4 @@
-function logout(){fetch('/admin/logout',{method:'POST',headers:{'X-Requested-With':'XMLHttpRequest'}}).then(function(){window.location.href='/admin/login'})}
+function logout(){fetch('/admin/logout',{method:'POST',headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(){window.location.href='/admin/login'})}
 function openModal(t){
   var map={'addOficial':'modalOficial','addParceria':'modalParceria','addAfiliado':'modalAfiliado'};
   var mid=map[t];
@@ -87,7 +87,7 @@ function fetchLinkPreview(url,type){
 
 function deleteItem(type,id){
   if(!confirm('Tem certeza que deseja excluir?'))return;
-  fetch('/admin/api/'+type+'/'+id,{method:'DELETE',headers:{'X-Requested-With':'XMLHttpRequest'}}).then(function(r){if(r.ok)window.location.reload()});
+  fetch('/admin/api/'+type+'/'+id,{method:'DELETE',headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload()});
 }
 
 function editOficial(id){
@@ -163,7 +163,7 @@ function submitOficial(){
   fd.append('ativo',document.getElementById('oficialAtivo').checked?'true':'false');
   var fi=document.getElementById('oficialAvatarFile');
   if(fi&&fi.files[0])fd.append('avatarFile',fi.files[0]);
-  fetch(id?'/admin/api/oficiais/'+id:'/admin/api/oficiais',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'}}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
+  fetch(id?'/admin/api/oficiais/'+id:'/admin/api/oficiais',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
 }
 
 function submitParceria(){
@@ -182,7 +182,7 @@ function submitParceria(){
   fd.append('ativo',document.getElementById('parceriaAtivo').checked?'true':'false');
   var fi=document.getElementById('parceriaLogoFile');
   if(fi&&fi.files[0])fd.append('logoFile',fi.files[0]);
-  fetch(id?'/admin/api/parcerias/'+id:'/admin/api/parcerias',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'}}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
+  fetch(id?'/admin/api/parcerias/'+id:'/admin/api/parcerias',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
 }
 
 function submitAfiliado(){
@@ -201,13 +201,13 @@ function submitAfiliado(){
   fd.append('ativo',document.getElementById('afiliadoAtivo').checked?'true':'false');
   var fi=document.getElementById('afiliadoLogoFile');
   if(fi&&fi.files[0])fd.append('logoFile',fi.files[0]);
-  fetch(id?'/admin/api/afiliados/'+id:'/admin/api/afiliados',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'}}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
+  fetch(id?'/admin/api/afiliados/'+id:'/admin/api/afiliados',{method:id?'PUT':'POST',body:fd,headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'}).then(function(r){if(r.ok)window.location.reload();else alert('Erro ao salvar')});
 }
 
 function submitSettings(){
   var fd={};
   document.querySelectorAll('[id^="setting_"]').forEach(function(i){fd[i.id]=i.value});
-  fetch('/admin/api/settings',{method:'POST',headers:{'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'},body:JSON.stringify(fd)}).then(function(r){if(r.ok)alert('Salvo!');else alert('Erro')});
+  fetch('/admin/api/settings',{method:'POST',headers:{'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'},credentials:'include',body:JSON.stringify(fd)}).then(function(r){if(r.ok)alert('Salvo!');else alert('Erro')});
 }
 
 var draggedItem=null;
@@ -229,7 +229,7 @@ function initDragReorder(tableId,type){
       else row.parentNode.insertBefore(draggedItem,row);
       var updates=[];
       tbody.querySelectorAll('tr').forEach(function(r,i){if(r.dataset.id)updates.push({id:parseInt(r.dataset.id),ordem:i})});
-      fetch('/admin/api/'+type+'/reorder',{method:'POST',headers:{'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'},body:JSON.stringify({items:updates})});
+      fetch('/admin/api/'+type+'/reorder',{method:'POST',headers:{'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'},credentials:'include',body:JSON.stringify({items:updates})});
     });
   });
 }

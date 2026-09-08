@@ -38,7 +38,7 @@ const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 // ===== LOGIN =====
 router.get('/login', (req, res) => {
-  res.send(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login - VORTEX</title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/admin.css"></head><body class="login-page"><div class="login-container"><div class="login-card"><div class="login-header"><span class="login-icon">⚔</span><h1>ALIANÇA VORTEX</h1><p>Painel Administrativo</p></div><form id="loginForm" class="login-form"><div class="form-group"><label for="username">Usuário</label><input type="text" id="username" name="username" required placeholder="Digite seu usuário"></div><div class="form-group"><label for="password">Senha</label><input type="password" id="password" name="password" required placeholder="Digite sua senha"></div><div id="loginError" class="error-message" style="display:none;"></div><button type="submit" class="btn btn-primary btn-full" id="loginBtn">ENTRAR</button></form><a href="/" class="back-link">← Voltar ao site</a></div></div><script>document.getElementById("loginForm").addEventListener("submit",function(e){e.preventDefault();var er=document.getElementById("loginError");er.style.display="none";var btn=document.getElementById("loginBtn");btn.disabled=true;btn.textContent="ENTRANDO...";fetch("/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:document.getElementById("username").value,password:document.getElementById("password").value})}).then(function(r){return r.json()}).then(function(d){if(d.success){window.location.href="/admin"}else{er.textContent=d.error||"Erro ao fazer login";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR"}}).catch(function(){er.textContent="Erro de conexão";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR"})});</script></body></html>`);
+  res.send(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login - VORTEX</title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/admin.css"></head><body class="login-page"><div class="login-container"><div class="login-card"><div class="login-header"><span class="login-icon">⚔</span><h1>ALIANÇA VORTEX</h1><p>Painel Administrativo</p></div><form id="loginForm" class="login-form"><div class="form-group"><label for="username">Usuário</label><input type="text" id="username" name="username" required placeholder="Digite seu usuário"></div><div class="form-group"><label for="password">Senha</label><input type="password" id="password" name="password" required placeholder="Digite sua senha"></div><div id="loginError" class="error-message" style="display:none;"></div><button type="submit" class="btn btn-primary btn-full" id="loginBtn">ENTRAR</button></form><a href="/" class="back-link">← Voltar ao site</a></div></div><script>document.getElementById("loginForm").addEventListener("submit",function(e){e.preventDefault();var er=document.getElementById("loginError");er.style.display="none";var btn=document.getElementById("loginBtn");btn.disabled=true;btn.textContent="ENTRANDO...";fetch("/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"include",body:JSON.stringify({username:document.getElementById("username").value,password:document.getElementById("password").value})}).then(function(r){return r.json()}).then(function(d){if(d.success){window.location.href="/admin"}else{er.textContent=d.error||"Erro ao fazer login";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR"}}).catch(function(){er.textContent="Erro de conexão";er.style.display="block";btn.disabled=false;btn.textContent="ENTRAR"})});</script></body></html>`);
 });
 
 router.post('/login', async (req, res) => {
@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
       httpOnly: true,
       secure: isProduction,
       maxAge: 12 * 60 * 60 * 1000,
-      sameSite: isProduction ? 'strict' : 'lax',
+      sameSite: 'lax',
       path: '/'
     });
     
@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/logout', (req, res) => {
   const isProduction = process.env.NODE_ENV === 'production';
-  res.clearCookie('token', { path: '/', httpOnly: true, secure: isProduction, sameSite: isProduction ? 'strict' : 'lax' });
+  res.clearCookie('token', { path: '/', httpOnly: true, secure: isProduction, sameSite: 'lax' });
   res.json({ success: true });
 });
 
