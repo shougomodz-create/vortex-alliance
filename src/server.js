@@ -217,13 +217,13 @@ app.get('/', async (req, res) => {
       
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Raleway:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
       <nav class="navbar">
         <a href="#inicio" class="logo">
-          <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
+          <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
           <span class="logo-text">ALIANÇA VORTEX</span>
         </a>
         <button class="menu-toggle" aria-label="Abrir menu">
@@ -443,7 +443,7 @@ app.get('/', async (req, res) => {
       <footer class="footer">
         <div class="footer-content">
           <div class="footer-logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
             <span class="logo-text">ALIANÇA VORTEX</span>
           </div>
           <p class="footer-copy">${settings.footer_text || '© 2026 Aliança Vortex. Todos os direitos reservados.'}</p>
