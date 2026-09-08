@@ -478,6 +478,10 @@ body::before {
   min-height: auto;
 }
 
+.cards-scroll.vertical .card-group-desc {
+  display: block;
+}
+
 .cards-scroll-container.vertical-layout .cards-scroll::-webkit-scrollbar {
   width: 8px;
   height: 0;
@@ -672,7 +676,7 @@ a.card, a.card:hover, a.card:active {
    ======================================== */
 
 .card-group {
-  flex: 0 0 200px;
+  flex: 0 0 160px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
@@ -694,7 +698,7 @@ a.card, a.card:hover, a.card:active {
 .card-group-image {
   position: relative;
   width: 100%;
-  height: 140px;
+  height: 120px;
   overflow: hidden;
   background: var(--bg-secondary);
   flex-shrink: 0;
@@ -734,8 +738,8 @@ a.card, a.card:hover, a.card:active {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40%;
-  background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 0%, transparent 100%);
+  height: 30%;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.7) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -757,16 +761,16 @@ a.card, a.card:hover, a.card:active {
 }
 
 .card-group-body {
-  padding: 0.75rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.25rem;
   flex: 1;
 }
 
 .card-group-name {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--accent-white);
   margin: 0;
@@ -818,11 +822,11 @@ a.card, a.card:hover, a.card:active {
 .card-group-btn {
   display: block;
   margin-top: auto;
-  padding-top: 0.5rem;
+  padding-top: 0.35rem;
   border-top: 1px solid var(--border-color);
   text-align: center;
   font-family: var(--font-label);
-  font-size: 0.65rem;
+  font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -841,6 +845,10 @@ a.card, a.card:hover, a.card:active {
 
 .afiliados-category {
   margin-bottom: 2rem;
+}
+
+.cards-scroll .card-group-desc {
+  display: none;
 }
 
 .afiliados-category:last-child {
@@ -956,11 +964,11 @@ a.card, a.card:hover, a.card:active {
   }
   
   .card-group {
-    flex: 0 0 170px;
+    flex: 0 0 150px;
   }
   
   .card-group-image {
-    height: 110px;
+    height: 100px;
   }
   
   .card-group-body {

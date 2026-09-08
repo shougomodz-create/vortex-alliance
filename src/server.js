@@ -165,19 +165,24 @@ app.get('/', async (req, res) => {
     const parcerias = database.all('SELECT * FROM parcerias WHERE ativo = 1 ORDER BY ordem ASC LIMIT 6');
     const allAfiliados = database.all('SELECT * FROM afiliados WHERE ativo = 1 ORDER BY ordem ASC');
     
-    // Agrupar afiliados por categoria
+    // Agrupar afiliados por categoria (case-insensitive)
     const afiliadosByCat = {};
+    const catDisplayMap = {};
     allAfiliados.forEach(a => {
-      const cat = a.categoria || a.tipo || 'Grupos Afiliados';
-      if (!afiliadosByCat[cat]) afiliadosByCat[cat] = [];
-      afiliadosByCat[cat].push(a);
+      const raw = (a.categoria || a.tipo || 'Grupos Afiliados').trim();
+      const key = raw.toLowerCase();
+      if (!afiliadosByCat[key]) {
+        afiliadosByCat[key] = [];
+        catDisplayMap[key] = raw;
+      }
+      afiliadosByCat[key].push(a);
     });
     
     // Ordem das categorias conhecidas + qualquer outra que tenha items
-    const catOrder = ['Grupos Afiliados', 'Canais de ZAP', 'Canais Afiliados', 'Sites'];
+    const catOrder = ['grupos afiliados', 'canais de zap', 'canais afiliados', 'sites'];
     const knownCats = catOrder.filter(c => afiliadosByCat[c] && afiliadosByCat[c].length > 0);
     const extraCats = Object.keys(afiliadosByCat).filter(c => catOrder.indexOf(c) === -1 && afiliadosByCat[c].length > 0);
-    const afiliadosCats = knownCats.concat(extraCats);
+    const afiliadosCatKeys = knownCats.concat(extraCats);
     
     const html = `
     <!DOCTYPE html>
@@ -205,7 +210,7 @@ app.get('/', async (req, res) => {
         <div class="nav-links">
           <a href="#inicio">Início</a>
           ${oficiais.length > 0 ? '<a href="#oficiais">Oficiais</a>' : ''}
-          ${afiliadosCats.length > 0 ? '<a href="#afiliados">Afiliados</a>' : ''}
+          ${afiliadosCatKeys.length > 0 ? '<a href="#afiliados">Afiliados</a>' : ''}
           ${parcerias.length > 0 ? '<a href="#parcerias">Parcerias</a>' : ''}
           <a href="/admin" class="btn-nav">PAINEL</a>
         </div>
@@ -222,7 +227,7 @@ app.get('/', async (req, res) => {
           <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
           
           <div class="hero-buttons">
-            <a href="#oficiais" class="btn btn-primary" onclick="event.preventDefault();document.getElementById('oficiais').scrollIntoView({behavior:'smooth'})">
+            <a href="#inicio" class="btn btn-primary" onclick="event.preventDefault();(document.getElementById('oficiais')||document.getElementById('afiliados')||document.getElementById('parcerias')).scrollIntoView({behavior:'smooth'})">
               EXPLORAR A ALIANÇA
               <span class="btn-arrow">↗</span>
             </a>
@@ -276,7 +281,7 @@ app.get('/', async (req, res) => {
         </section>
         ` : ''}
 
-        ${afiliadosCats.length > 0 ? `
+        ${afiliadosCatKeys.length > 0 ? `
         <section id="afiliados" class="section">
           <div class="section-header">
             <span class="section-tag">AFILIADOS</span>
@@ -290,12 +295,12 @@ app.get('/', async (req, res) => {
             <button class="layout-btn" onclick="setLayout('afiliados','vertical')" data-layout="vertical">⬇ Vertical</button>
           </div>
 
-          ${afiliadosCats.map((cat, idx) => `
+          ${afiliadosCatKeys.map((key, idx) => `
             <div class="afiliados-category">
-              <h3 class="category-title">${cat}</h3>
+              <h3 class="category-title">${catDisplayMap[key]}</h3>
               <div class="cards-scroll-container" id="afiliados-${idx}-container">
                 <div class="cards-scroll">
-                  ${afiliadosByCat[cat].map(a => `
+                  ${afiliadosByCat[key].map(a => `
                     <a href="${a.link || '#'}" class="card-group" target="_blank" rel="noopener">
                       <div class="card-group-image">
                         ${a.logo ? `<img src="${a.logo}" alt="${a.nome}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
@@ -325,7 +330,7 @@ app.get('/', async (req, res) => {
         <section id="parcerias" class="section">
           <div class="section-header">
             <span class="section-tag">PARCERIAS</span>
-            <span class="section-number">${((oficiais.length > 0 ? 1 : 0) + (afiliadosCats.length > 0 ? 1 : 0) + 1).toString().padStart(2,'0')}</span>
+            <span class="section-number">${((oficiais.length > 0 ? 1 : 0) + (afiliadosCatKeys.length > 0 ? 1 : 0) + 1).toString().padStart(2,'0')}</span>
           </div>
           <h2 class="section-title">Aliados da Jornada</h2>
           <p class="section-desc">Encontre as parcerias que caminham junto com a Aliança VORTEX.</p>
