@@ -247,7 +247,7 @@ router.post('/api/settings', authMiddleware, async (req, res) => {
 router.post('/api/change-password', authMiddleware, async (req, res) => {
   try {
     const { currentPassword, newUsername, newPassword } = req.body;
-    const user = await database.get('SELECT * FROM users WHERE id=$1', [req.user.userId]);
+    const user = await database.get('SELECT * FROM users WHERE id=$1', [req.user.id]);
     if (!user) return res.status(404).json({ error: 'Usuário não encontrado' });
     if (!bcrypt.compareSync(currentPassword, user.password)) {
       return res.status(401).json({ error: 'Senha atual incorreta' });
