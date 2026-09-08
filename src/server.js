@@ -287,8 +287,8 @@ app.get('/', async (req, res) => {
           <p class="section-desc">Veja os afiliados e grupos conectados à nossa comunidade.</p>
           
           <div class="layout-toggle">
-            <button class="layout-btn active" onclick="setLayout('afiliados','horizontal')" data-layout="horizontal">➡ Horizontal</button>
-            <button class="layout-btn" onclick="setLayout('afiliados','vertical')" data-layout="vertical">⬇ Vertical</button>
+            <button class="layout-btn active" onclick="setLayout('afiliados','horizontal')" data-layout="horizontal">➡</button>
+            <button class="layout-btn" onclick="setLayout('afiliados','vertical')" data-layout="vertical">⬇</button>
           </div>
 
           ${afiliadosCatKeys.map((key, idx) => `
@@ -332,8 +332,8 @@ app.get('/', async (req, res) => {
           <p class="section-desc">Encontre as parcerias que caminham junto com a Aliança VORTEX.</p>
           
           <div class="layout-toggle">
-            <button class="layout-btn active" onclick="setLayout('parcerias','horizontal')" data-layout="horizontal">➡ Horizontal</button>
-            <button class="layout-btn" onclick="setLayout('parcerias','vertical')" data-layout="vertical">⬇ Vertical</button>
+            <button class="layout-btn active" onclick="setLayout('parcerias','horizontal')" data-layout="horizontal">➡</button>
+            <button class="layout-btn" onclick="setLayout('parcerias','vertical')" data-layout="vertical">⬇</button>
           </div>
           
           <div class="cards-scroll-container" id="parcerias-container">
