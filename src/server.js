@@ -250,16 +250,6 @@ app.get('/', async (req, res) => {
                 ${settings.discord_link ? `<a href="${settings.discord_link}" class="btn btn-outline" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/></svg> ENTRAR NO DISCORD</a>` : ''}
               </div>
             </div>
-            <div class="hero-visual">
-              <div class="hero-circle">
-                <svg class="hero-sword" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.5">
-                  <path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/>
-                  <path d="M4 18L2 22"/>
-                  <path d="M6 14L2 18"/>
-                  <path d="M14.5 2L20 7.5L17 11L7 1L14.5 2Z"/>
-                </svg>
-              </div>
-            </div>
           </div>
 
           <div class="stats-row">

@@ -169,7 +169,7 @@ body::before {
    ======================================== */
 
 .hero {
-  padding: 7rem 2rem 3rem;
+  padding: 5rem 2rem 2rem;
   position: relative;
 }
 
@@ -179,7 +179,7 @@ body::before {
   justify-content: space-between;
   max-width: 1100px;
   margin: 0 auto;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .hero-text {
@@ -187,54 +187,13 @@ body::before {
   text-align: left;
 }
 
-.hero-visual {
-  flex-shrink: 0;
-}
-
-.hero-circle {
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  border: 2px solid rgba(196, 30, 58, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background: radial-gradient(circle, rgba(196, 30, 58, 0.08) 0%, transparent 70%);
-}
-
-.hero-circle::before {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 1px solid rgba(196, 30, 58, 0.15);
-}
-
-.hero-circle::after {
-  content: '';
-  position: absolute;
-  inset: -16px;
-  border-radius: 50%;
-  border: 1px solid rgba(196, 30, 58, 0.08);
-}
-
-.hero-circle-inner {
-  font-size: 5rem;
-  filter: drop-shadow(0 0 30px rgba(196, 30, 58, 0.5));
-}
-
-.hero-sword {
-  filter: drop-shadow(0 0 20px rgba(196, 30, 58, 0.4));
-}
-
 .hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0.03em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-shadow: 0 0 40px rgba(196, 30, 58, 0.3);
 }
 
@@ -355,13 +314,13 @@ body::before {
 
 .stats-row {
   display: flex;
-  gap: 1px;
+  gap: 0;
   width: 100%;
-  max-width: 600px;
-  margin: 2rem auto 0;
-  background: var(--border-color);
+  max-width: 500px;
+  margin: 1.5rem auto 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
+  border: 1px solid rgba(196, 30, 58, 0.25);
 }
 
 .stat-box {
@@ -369,21 +328,29 @@ body::before {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  background: var(--bg-card);
+  padding: 0.8rem 1rem;
+  background: rgba(196, 30, 58, 0.08);
+}
+
+.stat-box + .stat-box {
+  border-left: 1px solid rgba(196, 30, 58, 0.2);
 }
 
 .stat-icon {
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(196, 30, 58, 0.1);
+  background: rgba(196, 30, 58, 0.2);
   border-radius: 50%;
   flex-shrink: 0;
   color: var(--accent-red);
+}
+
+.stat-icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 .stat-info {
@@ -393,9 +360,9 @@ body::before {
 
 .stat-number {
   font-family: var(--font-heading);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--accent-white);
+  color: #fff;
   line-height: 1;
 }
 
@@ -403,9 +370,9 @@ body::before {
   font-family: var(--font-label);
   font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--text-muted);
-  margin-top: 0.15rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.1rem;
 }
 
 /* ========================================
@@ -413,7 +380,7 @@ body::before {
    ======================================== */
 
 .sobre-section {
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   text-align: center;
 }
 
@@ -489,7 +456,7 @@ body::before {
    ======================================== */
 
 .cta-section {
-  padding: 2rem;
+  padding: 1rem 2rem;
 }
 
 .cta-card {
@@ -590,7 +557,7 @@ body::before {
    ======================================== */
 
 .section {
-  padding: 5rem 2rem;
+  padding: 2.5rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -1071,6 +1038,7 @@ a.card, a.card:hover, a.card:active {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-break: break-word;
 }
 
 .card-group-tags {
@@ -1246,7 +1214,7 @@ a.card, a.card:hover, a.card:active {
   }
   
   .hero-title {
-    font-size: clamp(2.5rem, 12vw, 4rem);
+    font-size: clamp(2rem, 12vw, 3rem);
   }
   
   .hero-description {
@@ -1255,15 +1223,6 @@ a.card, a.card:hover, a.card:active {
   
   .hero-buttons-row {
     justify-content: center;
-  }
-  
-  .hero-circle {
-    width: 200px;
-    height: 200px;
-  }
-  
-  .hero-circle-inner {
-    font-size: 3.5rem;
   }
   
   .stats-row {
@@ -1350,7 +1309,7 @@ a.card, a.card:hover, a.card:active {
   }
   
   .section {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1rem;
   }
   
   .card-group {
