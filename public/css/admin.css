@@ -690,12 +690,13 @@ tr[draggable="true"]:hover {
   .sidebar {
     position: fixed;
     top: 0;
-    left: -260px;
-    width: 260px;
+    left: -280px;
+    width: 280px;
     height: 100vh;
-    z-index: 1000;
+    z-index: 1001;
     transition: left 0.3s ease;
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
   
   .sidebar.open {
@@ -709,8 +710,8 @@ tr[draggable="true"]:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 999;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
   }
   
   .sidebar-overlay.open {
@@ -718,29 +719,72 @@ tr[draggable="true"]:hover {
   }
   
   .main-content {
-    margin-left: 0;
+    margin-left: 0 !important;
+    width: 100%;
   }
   
   .topbar {
-    padding-left: 3.5rem;
+    padding: 0.75rem 1rem 0.75rem 3.5rem;
+  }
+  
+  .page-title {
+    font-size: 1rem;
   }
   
   .menu-toggle {
     display: flex;
   }
   
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
+  .content {
+    padding: 1rem;
   }
   
   .page-header {
     flex-direction: column;
     gap: 1rem;
-    align-items: flex-start;
+    align-items: stretch;
+  }
+  
+  .page-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal {
+    padding: 0.5rem;
+    align-items: flex-end;
+  }
+  
+  .modal-content {
+    max-height: 95vh;
+    border-radius: 12px 12px 0 0;
+  }
+  
+  .modal-header {
+    padding: 1rem;
+  }
+  
+  .modal-footer {
+    padding: 1rem;
+    flex-direction: column;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .card {
+    padding: 1rem;
   }
 }
 
@@ -768,7 +812,7 @@ tr[draggable="true"]:hover {
   position: fixed;
   top: 0.75rem;
   left: 0.75rem;
-  z-index: 1001;
+  z-index: 1100;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -777,6 +821,10 @@ tr[draggable="true"]:hover {
   color: var(--text-primary);
   font-size: 1.2rem;
   line-height: 1;
+}
+
+.sidebar-overlay {
+  display: none;
 }
 
 /* ========================================
