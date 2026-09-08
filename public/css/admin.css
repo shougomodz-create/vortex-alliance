@@ -688,11 +688,45 @@ tr[draggable="true"]:hover {
 
 @media (max-width: 768px) {
   .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    display: block;
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
+  
+  .sidebar-overlay {
     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+  
+  .sidebar-overlay.open {
+    display: block;
   }
   
   .main-content {
     margin-left: 0;
+  }
+  
+  .topbar {
+    padding-left: 3.5rem;
+  }
+  
+  .menu-toggle {
+    display: flex;
   }
   
   .form-row {
@@ -726,6 +760,23 @@ tr[draggable="true"]:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-red);
+}
+
+/* Menu toggle mobile */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1001;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
 /* ========================================
