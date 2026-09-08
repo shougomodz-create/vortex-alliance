@@ -914,14 +914,33 @@ body::before {
   }
 
   .stats-row {
-    flex-direction: column;
+    flex-direction: row;
     max-width: 100%;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    gap: 0;
   }
 
   .stat-box {
     justify-content: center;
+    padding: 0.6rem 0.3rem;
+    gap: 0.35rem;
+  }
+
+  .stat-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .stat-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .stat-number {
+    font-size: 1.1rem;
+  }
+
+  .stat-label {
+    font-size: 0.5rem;
   }
 
   .sobre-grid {
