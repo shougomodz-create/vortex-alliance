@@ -5,8 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "init-db": "node src/init-db.js"
+    "dev": "nodemon src/server.js"
   },
   "keywords": [
     "alianca",
@@ -26,7 +25,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
-    "sql.js": "^1.11.0",
+    "pg": "^8.23.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

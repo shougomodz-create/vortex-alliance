@@ -130,13 +130,13 @@ app.get('/', async (req, res) => {
       const userAgent = req.get('User-Agent') || '';
       
       // Verificar se já existe visita deste IP hoje
-      const existingVisit = database.get(
-        "SELECT id FROM visits WHERE ip = ? AND date(created_at) = date('now', 'localtime')",
+      const existingVisit = await database.get(
+        "SELECT id FROM visits WHERE ip = $1 AND date(created_at) = CURRENT_DATE",
         [ip]
       );
       
       if (!existingVisit) {
-        database.run('INSERT INTO visits (ip, user_agent) VALUES (?, ?)', [ip, userAgent]);
+        await database.run('INSERT INTO visits (ip, user_agent) VALUES ($1, $2)', [ip, userAgent]);
       }
       
       // Cookie de 24 horas
@@ -149,21 +149,21 @@ app.get('/', async (req, res) => {
     }
     
     // Buscar configurações
-    const settingsRows = database.all('SELECT * FROM settings');
+    const settingsRows = await database.all('SELECT * FROM settings');
     const settings = {};
     settingsRows.forEach(row => { settings[row.key] = row.value; });
     
     // Buscar contagens
-    const oficiaisCount = database.get('SELECT COUNT(*) as count FROM oficiais')?.count || 0;
-    const parceriasCount = database.get('SELECT COUNT(*) as count FROM parcerias')?.count || 0;
-    const afiliadosCount = database.get('SELECT COUNT(*) as count FROM afiliados')?.count || 0;
-    const visitsTotal = database.get('SELECT COUNT(*) as count FROM visits')?.count || 0;
-    const visitsToday = database.get("SELECT COUNT(*) as count FROM visits WHERE date(created_at) = date('now')")?.count || 0;
+    const oficiaisCount = (await database.get('SELECT COUNT(*) as count FROM oficiais'))?.count || 0;
+    const parceriasCount = (await database.get('SELECT COUNT(*) as count FROM parcerias'))?.count || 0;
+    const afiliadosCount = (await database.get('SELECT COUNT(*) as count FROM afiliados'))?.count || 0;
+    const visitsTotal = (await database.get('SELECT COUNT(*) as count FROM visits'))?.count || 0;
+    const visitsToday = (await database.get("SELECT COUNT(*) as count FROM visits WHERE date(created_at) = CURRENT_DATE"))?.count || 0;
     
     // Buscar dados para as seções
-    const oficiais = database.all('SELECT * FROM oficiais WHERE ativo = 1 ORDER BY ordem ASC LIMIT 6');
-    const parcerias = database.all('SELECT * FROM parcerias WHERE ativo = 1 ORDER BY ordem ASC LIMIT 6');
-    const allAfiliados = database.all('SELECT * FROM afiliados WHERE ativo = 1 ORDER BY ordem ASC');
+    const oficiais = await database.all('SELECT * FROM oficiais WHERE ativo = 1 ORDER BY ordem ASC LIMIT 6');
+    const parcerias = await database.all('SELECT * FROM parcerias WHERE ativo = 1 ORDER BY ordem ASC LIMIT 6');
+    const allAfiliados = await database.all('SELECT * FROM afiliados WHERE ativo = 1 ORDER BY ordem ASC');
     
     // Agrupar afiliados por categoria (case-insensitive)
     const afiliadosByCat = {};

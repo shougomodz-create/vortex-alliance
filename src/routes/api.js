@@ -192,9 +192,9 @@ function parseMemberCount(str) {
 }
 
 // GET - Buscar todas as configurações
-router.get('/settings', (req, res) => {
+router.get('/settings', async (req, res) => {
   try {
-    const rows = database.all('SELECT * FROM settings');
+    const rows = await database.all('SELECT * FROM settings');
     const settings = {};
     rows.forEach(row => { settings[row.key] = row.value; });
     res.json(settings);
@@ -204,9 +204,9 @@ router.get('/settings', (req, res) => {
 });
 
 // GET - Buscar oficiais
-router.get('/oficiais', (req, res) => {
+router.get('/oficiais', async (req, res) => {
   try {
-    const oficiais = database.all('SELECT * FROM oficiais WHERE ativo = 1 ORDER BY ordem ASC');
+    const oficiais = await database.all('SELECT * FROM oficiais WHERE ativo = 1 ORDER BY ordem ASC');
     res.json(oficiais);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao buscar oficiais' });
@@ -214,9 +214,9 @@ router.get('/oficiais', (req, res) => {
 });
 
 // GET - Buscar parcerias
-router.get('/parcerias', (req, res) => {
+router.get('/parcerias', async (req, res) => {
   try {
-    const parcerias = database.all('SELECT * FROM parcerias WHERE ativo = 1 ORDER BY ordem ASC');
+    const parcerias = await database.all('SELECT * FROM parcerias WHERE ativo = 1 ORDER BY ordem ASC');
     res.json(parcerias);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao buscar parcerias' });
@@ -224,9 +224,9 @@ router.get('/parcerias', (req, res) => {
 });
 
 // GET - Buscar afiliados
-router.get('/afiliados', (req, res) => {
+router.get('/afiliados', async (req, res) => {
   try {
-    const afiliados = database.all('SELECT * FROM afiliados WHERE ativo = 1 ORDER BY ordem ASC');
+    const afiliados = await database.all('SELECT * FROM afiliados WHERE ativo = 1 ORDER BY ordem ASC');
     res.json(afiliados);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao buscar afiliados' });
@@ -234,14 +234,14 @@ router.get('/afiliados', (req, res) => {
 });
 
 // GET - Estatísticas
-router.get('/stats', (req, res) => {
+router.get('/stats', async (req, res) => {
   try {
     const stats = {
-      oficiais: database.get('SELECT COUNT(*) as count FROM oficiais WHERE ativo = 1')?.count || 0,
-      parcerias: database.get('SELECT COUNT(*) as count FROM parcerias WHERE ativo = 1')?.count || 0,
-      afiliados: database.get('SELECT COUNT(*) as count FROM afiliados WHERE ativo = 1')?.count || 0,
-      visitsTotal: database.get('SELECT COUNT(*) as count FROM visits')?.count || 0,
-      visitsToday: database.get("SELECT COUNT(*) as count FROM visits WHERE date(created_at) = date('now')")?.count || 0
+      oficiais: (await database.get('SELECT COUNT(*) as count FROM oficiais WHERE ativo = 1'))?.count || 0,
+      parcerias: (await database.get('SELECT COUNT(*) as count FROM parcerias WHERE ativo = 1'))?.count || 0,
+      afiliados: (await database.get('SELECT COUNT(*) as count FROM afiliados WHERE ativo = 1'))?.count || 0,
+      visitsTotal: (await database.get('SELECT COUNT(*) as count FROM visits'))?.count || 0,
+      visitsToday: (await database.get("SELECT COUNT(*) as count FROM visits WHERE date(created_at) = CURRENT_DATE"))?.count || 0
     };
     res.json(stats);
   } catch (err) {
@@ -250,11 +250,11 @@ router.get('/stats', (req, res) => {
 });
 
 // POST - Registrar visita
-router.post('/visit', (req, res) => {
+router.post('/visit', async (req, res) => {
   try {
     const ip = req.ip || req.connection.remoteAddress;
     const userAgent = req.get('User-Agent');
-    database.run('INSERT INTO visits (ip, user_agent) VALUES (?, ?)', [ip, userAgent]);
+    await database.run('INSERT INTO visits (ip, user_agent) VALUES ($1, $2)', [ip, userAgent]);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: 'Erro ao registrar visita' });

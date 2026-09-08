@@ -1,65 +1,55 @@
-const initSqlJs = require('sql.js');
-const path = require('path');
-const fs = require('fs');
+const { Pool } = require('pg');
 
-let db = null;
-let SQL = null;
-
-const DB_PATH = path.resolve(__dirname, '..', process.env.DB_PATH || './data/vortex.db');
+let pool = null;
 
 const init = async () => {
-  const dbDir = path.dirname(DB_PATH);
+  const connectionString = process.env.DATABASE_URL;
   
-  console.log('[DB] Caminho do banco: ' + DB_PATH);
-  console.log('[DB] Diretório: ' + dbDir);
-  
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir, { recursive: true });
-    console.log('[DB] Diretório criado');
+  if (!connectionString) {
+    throw new Error('DATABASE_URL não configurada. Adicione a connection string do Neon nas env vars do Render.');
   }
   
-  SQL = await initSqlJs();
+  console.log('[DB] Conectando ao Neon PostgreSQL...');
   
-  // Carregar banco existente ou criar novo
-  if (fs.existsSync(DB_PATH)) {
-    const fileBuffer = fs.readFileSync(DB_PATH);
-    db = new SQL.Database(fileBuffer);
-    console.log('[DB] Banco existente carregado');
-  } else {
-    db = new SQL.Database();
-    console.log('[DB] Novo banco criado');
-  }
+  pool = new Pool({
+    connectionString,
+    ssl: { rejectUnauthorized: false }
+  });
   
-  createTables();
-  saveDatabase();
-  seedDefaultData();
+  // Testar conexão
+  const client = await pool.connect();
+  console.log('✓ Conectado ao Neon PostgreSQL');
+  client.release();
   
-  console.log('✓ Banco de dados inicializado em: ' + DB_PATH);
+  await createTables();
+  await seedDefaultData();
+  
+  console.log('✓ Banco de dados inicializado');
 };
 
-const createTables = () => {
-  db.run(`
+const createTables = async () => {
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       username TEXT UNIQUE NOT NULL,
       password TEXT NOT NULL,
       role TEXT DEFAULT 'admin',
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT NOW()
     )
   `);
   
-  db.run(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS settings (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       key TEXT UNIQUE NOT NULL,
       value TEXT,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      updated_at TIMESTAMP DEFAULT NOW()
     )
   `);
   
-  db.run(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS oficiais (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       nome TEXT NOT NULL,
       cargo TEXT,
       descricao TEXT,
@@ -69,13 +59,13 @@ const createTables = () => {
       instagram TEXT,
       ordem INTEGER DEFAULT 0,
       ativo INTEGER DEFAULT 1,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT NOW()
     )
   `);
   
-  db.run(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS parcerias (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       nome TEXT NOT NULL,
       tipo TEXT,
       descricao TEXT,
@@ -87,13 +77,13 @@ const createTables = () => {
       categoria TEXT DEFAULT 'Geral',
       ordem INTEGER DEFAULT 0,
       ativo INTEGER DEFAULT 1,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT NOW()
     )
   `);
   
-  db.run(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS afiliados (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       nome TEXT NOT NULL,
       tipo TEXT,
       descricao TEXT,
@@ -105,36 +95,36 @@ const createTables = () => {
       categoria TEXT DEFAULT 'Geral',
       ordem INTEGER DEFAULT 0,
       ativo INTEGER DEFAULT 1,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT NOW()
     )
   `);
   
-  db.run(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS visits (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       ip TEXT,
       user_agent TEXT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT NOW()
     )
   `);
 };
 
-const seedDefaultData = () => {
+const seedDefaultData = async () => {
   const bcrypt = require('bcryptjs');
   
   // Criar usuário admin padrão
-  const existingUser = db.exec('SELECT id FROM users WHERE username = ?', ['vtxadm']);
-  if (!existingUser.length || !existingUser[0].values.length) {
+  const existingUser = await pool.query('SELECT id FROM users WHERE username = $1', ['vtxadm']);
+  if (existingUser.rows.length === 0) {
     const hashedPassword = bcrypt.hashSync('VTX2K27', 10);
-    db.run('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', ['vtxadm', hashedPassword, 'admin']);
+    await pool.query('INSERT INTO users (username, password, role) VALUES ($1, $2, $3)', ['vtxadm', hashedPassword, 'admin']);
     console.log('✓ Usuário admin criado (vtxadm/VTX2K27)');
   }
   
   // Migrar usuário antigo admin -> vtxadm
-  const oldUser = db.exec('SELECT id FROM users WHERE username = ?', ['admin']);
-  if (oldUser.length && oldUser[0].values.length) {
+  const oldUser = await pool.query('SELECT id FROM users WHERE username = $1', ['admin']);
+  if (oldUser.rows.length > 0) {
     const newHash = bcrypt.hashSync('VTX2K27', 10);
-    db.run("UPDATE users SET username = 'vtxadm', password = ? WHERE username = 'admin'", [newHash]);
+    await pool.query("UPDATE users SET username = 'vtxadm', password = $1 WHERE username = 'admin'", [newHash]);
     console.log('✓ Usuário migrado admin -> vtxadm');
   }
   
@@ -151,58 +141,37 @@ const seedDefaultData = () => {
     instagram_link: ''
   };
   
-  Object.entries(defaultSettings).forEach(([key, value]) => {
-    const existing = db.exec('SELECT id FROM settings WHERE key = ?', [key]);
-    if (!existing.length || !existing[0].values.length) {
-      db.run('INSERT INTO settings (key, value) VALUES (?, ?)', [key, value]);
+  for (const [key, value] of Object.entries(defaultSettings)) {
+    const existing = await pool.query('SELECT id FROM settings WHERE key = $1', [key]);
+    if (existing.rows.length === 0) {
+      await pool.query('INSERT INTO settings (key, value) VALUES ($1, $2)', [key, value]);
     }
-  });
-  
-  saveDatabase();
-};
-
-const saveDatabase = () => {
-  if (db) {
-    const data = db.export();
-    const buffer = Buffer.from(data);
-    fs.writeFileSync(DB_PATH, buffer);
   }
-};
-
-const getDB = () => {
-  if (!db) throw new Error('Banco de dados não inicializado');
-  return db;
 };
 
 // Helper functions para operações comuns
-const all = (sql, params = []) => {
-  const result = db.exec(sql, params);
-  if (!result.length) return [];
-  
-  const columns = result[0].columns;
-  return result[0].values.map(row => {
-    const obj = {};
-    columns.forEach((col, i) => { obj[col] = row[i]; });
-    return obj;
-  });
+const all = async (sql, params = []) => {
+  const result = await pool.query(sql, params);
+  return result.rows;
 };
 
-const get = (sql, params = []) => {
-  const result = all(sql, params);
-  return result.length > 0 ? result[0] : null;
+const get = async (sql, params = []) => {
+  const result = await pool.query(sql, params);
+  return result.rows.length > 0 ? result.rows[0] : null;
 };
 
-const run = (sql, params = []) => {
-  db.run(sql, params);
-  saveDatabase();
-  return { changes: db.getRowsModified(), lastInsertRowid: db.exec('SELECT last_insert_rowid()')[0]?.values[0]?.[0] };
+const run = async (sql, params = []) => {
+  const result = await pool.query(sql, params);
+  return { 
+    changes: result.rowCount, 
+    lastInsertRowid: result.rows[0]?.id || null 
+  };
 };
 
-const close = () => {
-  if (db) {
-    saveDatabase();
-    db.close();
+const close = async () => {
+  if (pool) {
+    await pool.end();
   }
 };
 
-module.exports = { init, getDB, all, get, run, saveDatabase, close };
+module.exports = { init, all, get, run, close };
