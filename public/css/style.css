@@ -224,6 +224,10 @@ body::before {
   filter: drop-shadow(0 0 30px rgba(196, 30, 58, 0.5));
 }
 
+.hero-sword {
+  filter: drop-shadow(0 0 20px rgba(196, 30, 58, 0.4));
+}
+
 .hero-title {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 7vw, 5rem);
@@ -379,6 +383,7 @@ body::before {
   background: rgba(196, 30, 58, 0.1);
   border-radius: 50%;
   flex-shrink: 0;
+  color: var(--accent-red);
 }
 
 .stat-info {
@@ -461,6 +466,7 @@ body::before {
   border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
+  color: var(--accent-red);
 }
 
 .sobre-card h3 {
@@ -570,10 +576,12 @@ body::before {
   text-decoration: none;
   font-size: 1rem;
   transition: var(--transition);
+  color: var(--text-secondary);
 }
 
 .footer-social-link:hover {
   border-color: var(--accent-red);
+  color: var(--accent-red);
   transform: translateY(-2px);
 }
 

@@ -223,7 +223,7 @@ app.get('/', async (req, res) => {
     <body>
       <nav class="navbar">
         <a href="#inicio" class="logo">
-          <span class="logo-icon">⚔</span>
+          <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
           <span class="logo-text">ALIANÇA VORTEX</span>
         </a>
         <button class="menu-toggle" aria-label="Abrir menu">
@@ -246,34 +246,45 @@ app.get('/', async (req, res) => {
               <p class="hero-subtitle">${settings.hero_subtitle || 'Força, Honra e União.'}</p>
               <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
               <div class="hero-buttons-row">
-                <a href="#afiliados" class="btn btn-primary">VER AFILIADOS ↗</a>
-                ${settings.discord_link ? `<a href="${settings.discord_link}" class="btn btn-outline" target="_blank">⚔ ENTRAR NO DISCORD</a>` : ''}
+                <a href="#afiliados" class="btn btn-primary">VER AFILIADOS</a>
+                ${settings.discord_link ? `<a href="${settings.discord_link}" class="btn btn-outline" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/></svg> ENTRAR NO DISCORD</a>` : ''}
               </div>
             </div>
             <div class="hero-visual">
               <div class="hero-circle">
-                <div class="hero-circle-inner">⚔</div>
+                <svg class="hero-sword" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.5">
+                  <path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/>
+                  <path d="M4 18L2 22"/>
+                  <path d="M6 14L2 18"/>
+                  <path d="M14.5 2L20 7.5L17 11L7 1L14.5 2Z"/>
+                </svg>
               </div>
             </div>
           </div>
 
           <div class="stats-row">
             <div class="stat-box">
-              <div class="stat-icon">🛡️</div>
+              <div class="stat-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
               <div class="stat-info">
                 <span class="stat-number">${oficiaisCount}</span>
                 <span class="stat-label">OFICIAIS</span>
               </div>
             </div>
             <div class="stat-box">
-              <div class="stat-icon">🤝</div>
+              <div class="stat-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
               <div class="stat-info">
                 <span class="stat-number">${parceriasCount}</span>
                 <span class="stat-label">PARCERIAS</span>
               </div>
             </div>
             <div class="stat-box">
-              <div class="stat-icon">👥</div>
+              <div class="stat-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
               <div class="stat-info">
                 <span class="stat-number">${afiliadosCount}</span>
                 <span class="stat-label">AFILIADOS</span>
@@ -301,9 +312,9 @@ app.get('/', async (req, res) => {
                   <p class="card-role">${o.cargo || ''}</p>
                   <p class="card-desc">${o.descricao || ''}</p>
                   <div class="card-links">
-                    ${o.discord ? `<a href="${o.discord}" class="card-link" target="_blank"><span class="card-link-icon">💬</span> Discord</a>` : ''}
-                    ${o.whatsapp ? `<a href="${o.whatsapp}" class="card-link" target="_blank"><span class="card-link-icon">📱</span> WhatsApp</a>` : ''}
-                    ${o.instagram ? `<a href="${o.instagram}" class="card-link" target="_blank"><span class="card-link-icon">📸</span> Instagram</a>` : ''}
+                    ${o.discord ? `<a href="${o.discord}" class="card-link" target="_blank"><span class="card-link-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span> Discord</a>` : ''}
+                    ${o.whatsapp ? `<a href="${o.whatsapp}" class="card-link" target="_blank"><span class="card-link-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span> WhatsApp</a>` : ''}
+                    ${o.instagram ? `<a href="${o.instagram}" class="card-link" target="_blank"><span class="card-link-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span> Instagram</a>` : ''}
                   </div>
                 </div>
               `).join('')}
@@ -405,17 +416,23 @@ app.get('/', async (req, res) => {
           <p class="sobre-desc">Muito mais que uma conexão, uma verdadeira aliança.</p>
           <div class="sobre-grid">
             <div class="sobre-card">
-              <div class="sobre-icon">👥</div>
+              <div class="sobre-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
               <h3>UNIÃO</h3>
               <p>Conectamos grupos e comunidades com um objetivo em comum.</p>
             </div>
             <div class="sobre-card">
-              <div class="sobre-icon">🤝</div>
+              <div class="sobre-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
               <h3>PARCERIAS</h3>
               <p>Parcerias fortes que geram visibilidade, crescimento e oportunidades.</p>
             </div>
             <div class="sobre-card">
-              <div class="sobre-icon">🛡️</div>
+              <div class="sobre-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
               <h3>CONFIANÇA</h3>
               <p>Segurança e compromisso com todos os afiliados da aliança.</p>
             </div>
@@ -428,7 +445,7 @@ app.get('/', async (req, res) => {
               <h3>FAÇA PARTE DA ALIANÇA</h3>
               <p>Tem um grupo e quer crescer junto com a gente? Seja um afiliado da Aliança Vortex.</p>
             </div>
-            <a href="${settings.whatsapp_link || '#'}" class="btn btn-primary" target="_blank">SOLICITAR AFILIAÇÃO ↗</a>
+            <a href="${settings.whatsapp_link || '#'}" class="btn btn-primary" target="_blank">SOLICITAR AFILIAÇÃO</a>
           </div>
         </section>
       </main>
@@ -436,14 +453,14 @@ app.get('/', async (req, res) => {
       <footer class="footer">
         <div class="footer-content">
           <div class="footer-logo">
-            <span class="logo-icon">⚔</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
             <span class="logo-text">ALIANÇA VORTEX</span>
           </div>
           <p class="footer-copy">${settings.footer_text || '© 2026 Aliança Vortex. Todos os direitos reservados.'}</p>
           <div class="footer-social">
-            ${settings.whatsapp_link ? `<a href="${settings.whatsapp_link}" target="_blank" class="footer-social-link">📱</a>` : ''}
-            ${settings.instagram_link ? `<a href="${settings.instagram_link}" target="_blank" class="footer-social-link">📸</a>` : ''}
-            ${settings.discord_link ? `<a href="${settings.discord_link}" target="_blank" class="footer-social-link">💬</a>` : ''}
+            ${settings.whatsapp_link ? `<a href="${settings.whatsapp_link}" target="_blank" class="footer-social-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>` : ''}
+            ${settings.instagram_link ? `<a href="${settings.instagram_link}" target="_blank" class="footer-social-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>` : ''}
+            ${settings.discord_link ? `<a href="${settings.discord_link}" target="_blank" class="footer-social-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>` : ''}
           </div>
         </div>
       </footer>
