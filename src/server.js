@@ -182,7 +182,7 @@ app.get('/', async (req, res) => {
     });
     
     // Ordem das categorias conhecidas + qualquer outra que tenha items
-    const catOrder = ['grupos afiliados', 'canais de zap', 'canais afiliados', 'bot de divulgação', 'canal telegram', 'sites'];
+    const catOrder = ['amizade', 'grupos afiliados', 'canais de zap', 'canais afiliados', 'bot de divulgação', 'canal telegram', 'sites'];
     const knownCats = catOrder.filter(c => afiliadosByCat[c] && afiliadosByCat[c].length > 0);
     const extraCats = Object.keys(afiliadosByCat).filter(c => catOrder.indexOf(c) === -1 && afiliadosByCat[c].length > 0);
     const afiliadosCatKeys = knownCats.concat(extraCats);
