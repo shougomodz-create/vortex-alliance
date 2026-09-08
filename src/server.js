@@ -100,7 +100,7 @@ app.use('/admin/api', (req, res, next) => {
     const xRequestedWith = req.get('X-Requested-With');
     
     // Permitir se vier do próprio site ou tiver header de identificação
-    const isSameOrigin = origin.includes('localhost') || origin.includes('127.0.0.1');
+    const isSameOrigin = origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('onrender.com') || origin.includes('vortex-alliance');
     if (!isSameOrigin && !xRequestedWith) {
       return res.status(403).json({ error: 'Requisição bloqueada' });
     }
@@ -246,16 +246,7 @@ app.get('/', async (req, res) => {
             </div>
           </div>
 
-          <div class="stats-row">
-            <div class="stat-box wide">
-              <span class="stat-number">${visitsTotal}</span>
-              <span class="stat-label">VISITAS TOTAIS</span>
-            </div>
-            <div class="stat-box wide">
-              <span class="stat-number">${visitsToday}</span>
-              <span class="stat-label">VISITAS HOJE</span>
-            </div>
-          </div>
+
         </section>
 
         ${oficiais.length > 0 ? `
@@ -388,7 +379,7 @@ app.get('/', async (req, res) => {
 
       <footer class="footer">
         <p>${settings.footer_text || 'VORTEX © 2026 — Todos os direitos reservados.'}</p>
-        <p class="footer-note">Navegação e conteúdo em atualização pelo painel.</p>
+
       </footer>
 
       <script src="/js/main.js"></script>

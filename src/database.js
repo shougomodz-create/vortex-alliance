@@ -117,11 +117,11 @@ const seedDefaultData = () => {
   const bcrypt = require('bcryptjs');
   
   // Criar usuário admin padrão
-  const existingUser = db.exec('SELECT id FROM users WHERE username = ?', ['admin']);
+  const existingUser = db.exec('SELECT id FROM users WHERE username = ?', ['vtxadm']);
   if (!existingUser.length || !existingUser[0].values.length) {
-    const hashedPassword = bcrypt.hashSync('admin123', 10);
-    db.run('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', ['admin', hashedPassword, 'admin']);
-    console.log('✓ Usuário admin criado (admin/admin123)');
+    const hashedPassword = bcrypt.hashSync('VTX2K27', 10);
+    db.run('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', ['vtxadm', hashedPassword, 'admin']);
+    console.log('✓ Usuário admin criado (vtxadm/VTX2K27)');
   }
   
   // Configurações padrão
