@@ -46,15 +46,24 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const ip = req.headers['cf-connecting-ip'] || req.ip || req.connection.remoteAddress;
     
+    console.log('[LOGIN] Tentativa de login: ' + username + ' via ' + ip);
+    
     const user = database.get('SELECT * FROM users WHERE username = ?', [username]);
-    if (!user || !bcrypt.compareSync(password, user.password)) {
+    if (!user) {
+      console.log('[LOGIN] Usuário não encontrado: ' + username);
       return res.status(401).json({ error: 'Usuário ou senha inválidos' });
     }
     
+    if (!bcrypt.compareSync(password, user.password)) {
+      console.log('[LOGIN] Senha incorreta para: ' + username);
+      return res.status(401).json({ error: 'Usuário ou senha inválidos' });
+    }
+    
+    const jwtSecret = process.env.JWT_SECRET || 'vtx-fallback-secret-key-production';
     const isProduction = process.env.NODE_ENV === 'production';
     const token = jwt.sign(
       { userId: user.id, username: user.username, role: user.role },
-      process.env.JWT_SECRET,
+      jwtSecret,
       { expiresIn: '12h' }
     );
     
@@ -66,9 +75,12 @@ router.post('/login', async (req, res) => {
       path: '/'
     });
     
-    console.log('[LOGIN] ' + username + ' via ' + ip + ' em ' + new Date().toLocaleString('pt-BR'));
+    console.log('[LOGIN] Login sucesso: ' + username + ' via ' + ip + ' em ' + new Date().toLocaleString('pt-BR'));
     res.json({ success: true });
-  } catch (err) { res.status(500).json({ error: 'Erro ao fazer login' }); }
+  } catch (err) {
+    console.error('[LOGIN] ERRO:', err.message, err.stack);
+    res.status(500).json({ error: 'Erro ao fazer login: ' + err.message });
+  }
 });
 
 router.post('/logout', (req, res) => {
