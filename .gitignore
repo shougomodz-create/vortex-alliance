@@ -6,3 +6,5 @@ data/
 Thumbs.db
 public/images/*
 !public/images/.gitkeep
+!public/images/favicon.svg
+!public/images/logo-vortex.svg

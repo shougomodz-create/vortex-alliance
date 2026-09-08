@@ -323,7 +323,7 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
-  min-width: 500px;
+  min-width: 600px;
 }
 
 .data-table th, .data-table td {

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0a"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c41e3a"/>
+      <stop offset="100%" style="stop-color:#8b0000"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" rx="80" fill="url(#bg)"/>
+  
+  <!-- Border -->
+  <rect x="4" y="4" width="392" height="392" rx="78" fill="none" stroke="#c41e3a" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Sword Icon -->
+  <g transform="translate(200, 160)">
+    <!-- Blade -->
+    <path d="M0,-80 L15,-20 L0,0 L-15,-20 Z" fill="url(#red)"/>
+    <!-- Guard -->
+    <rect x="-30" y="0" width="60" height="8" rx="4" fill="#c41e3a"/>
+    <!-- Handle -->
+    <rect x="-6" y="8" width="12" height="40" rx="3" fill="#8b0000"/>
+    <!-- Pommel -->
+    <circle cx="0" cy="52" r="8" fill="#c41e3a"/>
+  </g>
+  
+  <!-- V Text -->
+  <text x="200" y="280" font-family="serif" font-size="72" font-weight="bold" fill="#ffffff" text-anchor="middle">V</text>
+  
+  <!-- ALIANÇA VORTEX text -->
+  <text x="200" y="340" font-family="sans-serif" font-size="24" font-weight="600" fill="#c41e3a" text-anchor="middle" letter-spacing="8">VORTEX</text>
+</svg>
