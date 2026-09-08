@@ -228,13 +228,6 @@ app.get('/', async (req, res) => {
           <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>VORTEX'}</h1>
           <p class="hero-subtitle">${settings.hero_subtitle || 'Força, Honra e União.'}</p>
           <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
-          
-          <div class="hero-buttons">
-            <a href="#inicio" class="btn btn-primary" onclick="event.preventDefault();(document.getElementById('oficiais')||document.getElementById('afiliados')||document.getElementById('parcerias')).scrollIntoView({behavior:'smooth'})">
-              EXPLORAR A ALIANÇA
-              <span class="btn-arrow">↗</span>
-            </a>
-          </div>
 
           <div class="stats-row">
             <div class="stat-box">
