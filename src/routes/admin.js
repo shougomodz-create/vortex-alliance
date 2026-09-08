@@ -15,20 +15,22 @@ const getTurnstileSitekey = () => process.env.TURNSTILE_SITEKEY || '0x4AAAAAACzv
 async function verifyTurnstile(token, ip) {
   const secret = getTurnstileSecret();
   if (!secret) return true;
+  if (!token) return false;
   try {
     const formData = new URLSearchParams();
-    formData.append('secret', TURNSTILE_SECRET);
+    formData.append('secret', secret);
     formData.append('response', token);
-    formData.append('remoteip', ip);
     const res = await axios.post('https://challenges.cloudflare.com/turnstile/v0/siteverify', formData, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      timeout: 5000
+      timeout: 10000
     });
+    console.log('[TURNSTILE] Result:', JSON.stringify(res.data));
     return res.data.success === true;
   } catch (e) {
-    console.error('Erro Turnstile:', e.message);
+    console.error('[TURNSTILE] Erro:', e.message);
     return false;
   }
+}
 }
 
 const storage = multer.diskStorage({
