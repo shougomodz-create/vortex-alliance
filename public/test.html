@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+<h1>Admin JS Test</h1>
+<div id="result"></div>
+<script src="/js/admin.js"></script>
+<script>
+document.getElementById('result').innerHTML = 
+  'openModal: ' + typeof openModal + '<br>' +
+  'logout: ' + typeof logout + '<br>' +
+  'closeModal: ' + typeof closeModal + '<br>' +
+  'submitParceria: ' + typeof submitParceria;
+</script>
+</body>
+</html>
