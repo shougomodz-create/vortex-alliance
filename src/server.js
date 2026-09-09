@@ -229,7 +229,7 @@ app.get('/', async (req, res) => {
     <body>
       <canvas id="siteParticles"></canvas>
       <nav class="navbar">
-        <a href="#inicio" class="logo">⚔️ UNX</a>
+        <a href="#inicio" class="logo">🛡️ UNX</a>
         <button class="menu-toggle" aria-label="Abrir menu">
           <span></span><span></span><span></span>
         </button>
