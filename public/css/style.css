@@ -1,6 +1,6 @@
 /* ========================================
    ALIANÇA UNION - TEMA DARK GÓTICO
-   Fontes: Cinzel Decorative (títulos)
+   Fontes: Cinzel (títulos)
            Nunito (textos corridos)
            Poppins (subtítulos/tags)
    Cores: Preto, Roxo, Dourado
@@ -36,7 +36,7 @@
   --glow-gold: 0 0 15px rgba(184, 134, 11, 0.3);
 
   /* Fontes */
-  --font-heading: 'Cinzel Decorative', 'Georgia', serif;
+  --font-heading: 'Cinzel', 'Georgia', serif;
   --font-subtitle: 'Poppins', -apple-system, sans-serif;
   --font-body: 'Nunito', -apple-system, sans-serif;
 
