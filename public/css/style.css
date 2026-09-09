@@ -205,6 +205,13 @@ body::before {
   position: relative;
 }
 
+.hero-logo {
+  width: clamp(180px, 30vw, 280px);
+  height: auto;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 40px rgba(139, 0, 255, 0.35));
+}
+
 .hero-title {
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 7vw, 4rem);
