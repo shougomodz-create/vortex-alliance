@@ -247,8 +247,7 @@ app.get('/', async (req, res) => {
         <section id="inicio" class="hero">
           <div class="hero-content">
             <div class="hero-text">
-              <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="hero-logo">
-              <p class="hero-subtitle">${settings.hero_subtitle || 'Força, Honra e União.'}</p>
+              <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>UNION'}</h1>
               <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
               <div class="hero-buttons-row">
                 <a href="#afiliados" class="btn btn-primary">VER AFILIADOS</a>

@@ -115,20 +115,20 @@ body::before {
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  justify-content: center;
   text-decoration: none;
 }
 
 .logo-img {
-  height: 40px;
+  height: 32px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(139, 0, 255, 0.3));
+  filter: drop-shadow(0 0 6px rgba(139, 0, 255, 0.3));
   transition: var(--transition);
 }
 
 .logo:hover .logo-img {
-  filter: drop-shadow(0 0 12px rgba(139, 0, 255, 0.5));
+  filter: drop-shadow(0 0 10px rgba(139, 0, 255, 0.5));
 }
 
 .logo-icon {
@@ -214,14 +214,6 @@ body::before {
   margin-bottom: 0.75rem;
   color: var(--text-primary);
   text-shadow: 0 0 30px rgba(139, 0, 255, 0.2);
-}
-
-.hero-logo {
-  max-width: 320px;
-  height: auto;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 0 20px rgba(139, 0, 255, 0.3));
-  animation: fadeIn 0.8s ease;
 }
 
 .hero-subtitle {
@@ -851,14 +843,14 @@ body::before {
 .footer-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
 }
 
 .footer-logo-img {
-  height: 50px;
+  height: 40px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(139, 0, 255, 0.3));
+  filter: drop-shadow(0 0 6px rgba(139, 0, 255, 0.3));
 }
 
 .footer-logo svg {
