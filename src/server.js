@@ -229,7 +229,7 @@ app.get('/', async (req, res) => {
     <body>
       <nav class="navbar">
         <a href="#inicio" class="logo">
-          <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="logo-img">
+          <img src="/images/logo-nav.svg" alt="UNX" class="logo-img">
           <span class="logo-text">ALIANÇA UNION</span>
         </a>
         <button class="menu-toggle" aria-label="Abrir menu">
