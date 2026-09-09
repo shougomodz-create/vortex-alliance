@@ -230,6 +230,7 @@ app.get('/', async (req, res) => {
       <nav class="navbar">
         <a href="#inicio" class="logo">
           <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="logo-img">
+          <span class="logo-text">ALIANÇA UNION</span>
         </a>
         <button class="menu-toggle" aria-label="Abrir menu">
           <span></span><span></span><span></span>
@@ -248,7 +249,6 @@ app.get('/', async (req, res) => {
           <div class="hero-content">
             <div class="hero-text">
               <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="hero-logo">
-              <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>UNION'}</h1>
               <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
               <div class="hero-buttons-row">
                 <a href="#afiliados" class="btn btn-primary">VER AFILIADOS</a>

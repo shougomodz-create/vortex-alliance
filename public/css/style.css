@@ -122,6 +122,16 @@ body::before {
 .logo-img {
   height: 32px;
   width: auto;
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin-left: 0.5rem;
+}
   object-fit: contain;
   filter: drop-shadow(0 0 6px rgba(139, 0, 255, 0.3));
   transition: var(--transition);
