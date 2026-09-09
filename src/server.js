@@ -229,8 +229,7 @@ app.get('/', async (req, res) => {
     <body>
       <nav class="navbar">
         <a href="#inicio" class="logo">
-          <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
-          <span class="logo-text">ALIANÇA UNION</span>
+          <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="logo-img">
         </a>
         <button class="menu-toggle" aria-label="Abrir menu">
           <span></span><span></span><span></span>
@@ -248,7 +247,7 @@ app.get('/', async (req, res) => {
         <section id="inicio" class="hero">
           <div class="hero-content">
             <div class="hero-text">
-              <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>UNION'}</h1>
+              <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="hero-logo">
               <p class="hero-subtitle">${settings.hero_subtitle || 'Força, Honra e União.'}</p>
               <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
               <div class="hero-buttons-row">
@@ -449,8 +448,7 @@ app.get('/', async (req, res) => {
       <footer class="footer">
         <div class="footer-content">
           <div class="footer-logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
-            <span class="logo-text">ALIANÇA UNION</span>
+            <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="footer-logo-img">
           </div>
           <p class="footer-copy">${settings.footer_text || '© 2026 Aliança UNION. Todos os direitos reservados.'}</p>
           <div class="footer-social">
