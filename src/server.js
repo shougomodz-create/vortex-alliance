@@ -228,10 +228,7 @@ app.get('/', async (req, res) => {
     </head>
     <body>
       <nav class="navbar">
-        <a href="#inicio" class="logo">
-          <img src="/images/logo-nav.svg" alt="UNX" class="logo-img">
-          <span class="logo-text">ALIANÇA UNION</span>
-        </a>
+        <a href="#inicio" class="logo">UNX</a>
         <button class="menu-toggle" aria-label="Abrir menu">
           <span></span><span></span><span></span>
         </button>
@@ -246,6 +243,7 @@ app.get('/', async (req, res) => {
 
       <main>
         <section id="inicio" class="hero">
+          <canvas id="heroParticles"></canvas>
           <div class="hero-content">
             <div class="hero-text">
               <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="hero-logo">
@@ -459,6 +457,41 @@ app.get('/', async (req, res) => {
         </div>
       </footer>
 
+      <script>
+      (function(){
+        var c=document.getElementById('heroParticles');
+        if(!c)return;
+        var ctx=c.getContext('2d');
+        var particles=[];
+        var count=40;
+        function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight}
+        resize();
+        window.addEventListener('resize',resize);
+        for(var i=0;i<count;i++){
+          particles.push({
+            x:Math.random()*c.width,
+            y:Math.random()*c.height,
+            r:Math.random()*1.5+0.5,
+            speed:Math.random()*0.3+0.1,
+            opacity:Math.random()*0.15+0.05
+          });
+        }
+        function draw(){
+          ctx.clearRect(0,0,c.width,c.height);
+          for(var i=0;i<particles.length;i++){
+            var p=particles[i];
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle='rgba(139,0,255,'+p.opacity+')';
+            ctx.fill();
+            p.y+=p.speed;
+            if(p.y>c.height+10){p.y=-10;p.x=Math.random()*c.width}
+          }
+          requestAnimationFrame(draw);
+        }
+        draw();
+      })();
+      </script>
       <script src="/js/main.js"></script>
     </body>
     </html>`;
