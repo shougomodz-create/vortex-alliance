@@ -206,14 +206,17 @@ app.get('/', async (req, res) => {
       <meta property="og:url" content="https://union-alliance.onrender.com/">
       <meta property="og:title" content="${settings.site_title || 'ALIANÇA UNION'}">
       <meta property="og:description" content="${settings.description || 'Aliança UNION — Força, Honra e União.'}">
-      <meta property="og:image" content="${settings.logo || 'https://union-alliance.onrender.com/images/logo-union.svg'}">
+      <meta property="og:image" content="https://union-alliance.onrender.com/images/og-image.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <meta property="og:site_name" content="ALIANÇA UNION">
       
       <!-- Twitter -->
       <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:url" content="https://union-alliance.onrender.com/">
       <meta name="twitter:title" content="${settings.site_title || 'ALIANÇA UNION'}">
       <meta name="twitter:description" content="${settings.description || 'Aliança UNION — Força, Honra e União.'}">
-      <meta name="twitter:image" content="${settings.logo || 'https://union-alliance.onrender.com/images/logo-union.svg'}">
+      <meta name="twitter:image" content="https://union-alliance.onrender.com/images/og-image.png">
       
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
