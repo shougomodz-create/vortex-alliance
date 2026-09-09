@@ -10,7 +10,7 @@ const database = require('../database');
 const authMiddleware = require('../middleware/auth');
 
 const getTurnstileSecret = () => process.env.TURNSTILE_SECRET_KEY || '';
-const getTurnstileSitekey = () => process.env.TURNSTILE_SITEKEY || '0x4AAAAAACzvNarbs8yzOoKh';
+const getTurnstileSitekey = () => process.env.TURNSTILE_SITEKEY || '0x4AAAAAAEt2jkXMuumgbVrF';
 
 async function verifyTurnstile(token, ip) {
   const secret = getTurnstileSecret();
