@@ -151,12 +151,12 @@ const seedDefaultData = async () => {
   
   // Configurações padrão
   const defaultSettings = {
-    site_title: 'ALIANÇA VORTEX',
-    hero_title: 'ALIANÇA<br>VORTEX',
+    site_title: 'ALIANÇA UNION',
+    hero_title: 'ALIANÇA<br>UNION',
     hero_subtitle: 'Força, Honra e União.',
     hero_description: 'Conexões oficiais, parcerias e presença reunidas em um único espaço.',
-    description: 'Aliança VORTEX — Força, Honra e União.',
-    footer_text: 'VORTEX © 2026 — Todos os direitos reservados.',
+    description: 'Aliança UNION — Força, Honra e União.',
+    footer_text: 'UNION © 2026 — Todos os direitos reservados.',
     whatsapp_link: '',
     discord_link: '',
     instagram_link: ''

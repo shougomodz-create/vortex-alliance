@@ -100,7 +100,7 @@ app.use('/admin/api', (req, res, next) => {
     const xRequestedWith = req.get('X-Requested-With');
     
     // Permitir se vier do próprio site ou tiver header de identificação
-    const isSameOrigin = origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('onrender.com') || origin.includes('vortex-alliance');
+    const isSameOrigin = origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('onrender.com') || origin.includes('union-alliance');
     if (!isSameOrigin && !xRequestedWith) {
       return res.status(403).json({ error: 'Requisição bloqueada' });
     }
@@ -194,26 +194,26 @@ app.get('/', async (req, res) => {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="theme-color" content="#0a0a0a">
-      <meta name="description" content="${settings.description || 'Aliança VORTEX — Força, Honra e União.'}">
-      <title>${settings.site_title || 'ALIANÇA VORTEX'}</title>
+      <meta name="description" content="${settings.description || 'Aliança UNION — Força, Honra e União.'}">
+      <title>${settings.site_title || 'ALIANÇA UNION'}</title>
       
       <!-- Favicon -->
       <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
-      <link rel="apple-touch-icon" href="/images/logo-vortex.svg">
+      <link rel="apple-touch-icon" href="/images/logo-union.svg">
       
       <!-- Open Graph / Facebook -->
       <meta property="og:type" content="website">
-      <meta property="og:url" content="https://vortex-alliance.onrender.com/">
-      <meta property="og:title" content="${settings.site_title || 'ALIANÇA VORTEX'}">
-      <meta property="og:description" content="${settings.description || 'Aliança VORTEX — Força, Honra e União.'}">
-      <meta property="og:image" content="${settings.logo || 'https://vortex-alliance.onrender.com/images/logo-vortex.svg'}">
+      <meta property="og:url" content="https://union-alliance.onrender.com/">
+      <meta property="og:title" content="${settings.site_title || 'ALIANÇA UNION'}">
+      <meta property="og:description" content="${settings.description || 'Aliança UNION — Força, Honra e União.'}">
+      <meta property="og:image" content="${settings.logo || 'https://union-alliance.onrender.com/images/logo-union.svg'}">
       
       <!-- Twitter -->
       <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:url" content="https://vortex-alliance.onrender.com/">
-      <meta name="twitter:title" content="${settings.site_title || 'ALIANÇA VORTEX'}">
-      <meta name="twitter:description" content="${settings.description || 'Aliança VORTEX — Força, Honra e União.'}">
-      <meta name="twitter:image" content="${settings.logo || 'https://vortex-alliance.onrender.com/images/logo-vortex.svg'}">
+      <meta name="twitter:url" content="https://union-alliance.onrender.com/">
+      <meta name="twitter:title" content="${settings.site_title || 'ALIANÇA UNION'}">
+      <meta name="twitter:description" content="${settings.description || 'Aliança UNION — Força, Honra e União.'}">
+      <meta name="twitter:image" content="${settings.logo || 'https://union-alliance.onrender.com/images/logo-union.svg'}">
       
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -224,7 +224,7 @@ app.get('/', async (req, res) => {
       <nav class="navbar">
         <a href="#inicio" class="logo">
           <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
-          <span class="logo-text">ALIANÇA VORTEX</span>
+          <span class="logo-text">ALIANÇA UNION</span>
         </a>
         <button class="menu-toggle" aria-label="Abrir menu">
           <span></span><span></span><span></span>
@@ -242,7 +242,7 @@ app.get('/', async (req, res) => {
         <section id="inicio" class="hero">
           <div class="hero-content">
             <div class="hero-text">
-              <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>VORTEX'}</h1>
+              <h1 class="hero-title">${settings.hero_title || 'ALIANÇA<br>UNION'}</h1>
               <p class="hero-subtitle">${settings.hero_subtitle || 'Força, Honra e União.'}</p>
               <p class="hero-description">${settings.hero_description || 'Conexões oficiais, parcerias e presença reunidas em um único espaço.'}</p>
               <div class="hero-buttons-row">
@@ -290,7 +290,7 @@ app.get('/', async (req, res) => {
             <span class="section-number">01</span>
           </div>
           <h2 class="section-title">Liderança da Aliança</h2>
-          <p class="section-desc">Conheça os oficiais que fazem parte da liderança da Aliança VORTEX.</p>
+          <p class="section-desc">Conheça os oficiais que fazem parte da liderança da Aliança UNION.</p>
           <div class="cards-scroll-container">
             <div class="cards-scroll">
               ${oficiais.map(o => `
@@ -366,7 +366,7 @@ app.get('/', async (req, res) => {
             <span class="section-number">${((oficiais.length > 0 ? 1 : 0) + (afiliadosCatKeys.length > 0 ? 1 : 0) + 1).toString().padStart(2,'0')}</span>
           </div>
           <h2 class="section-title">Aliados da Jornada</h2>
-          <p class="section-desc">Encontre as parcerias que caminham junto com a Aliança VORTEX.</p>
+          <p class="section-desc">Encontre as parcerias que caminham junto com a Aliança UNION.</p>
           
           <div class="layout-toggle">
             <button class="layout-btn active" onclick="setLayout('parcerias','horizontal')" data-layout="horizontal"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
@@ -433,9 +433,9 @@ app.get('/', async (req, res) => {
           <div class="cta-card">
             <div class="cta-text">
               <h3>FAÇA PARTE DA ALIANÇA</h3>
-              <p>Tem um grupo e quer crescer junto com a gente? Seja um afiliado da Aliança Vortex.</p>
+              <p>Tem um grupo e quer crescer junto com a gente? Seja um afiliado da Aliança UNION.</p>
             </div>
-            <a href="${settings.whatsapp_link ? settings.whatsapp_link + (settings.whatsapp_link.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent('Olá! Gostaria de solicitar uma afiliação com a Aliança VORTEX.') : '#'}" class="btn btn-primary" target="_blank">SOLICITAR AFILIAÇÃO</a>
+            <a href="${settings.whatsapp_link ? settings.whatsapp_link + (settings.whatsapp_link.includes('?') ? '&' : '?') + 'text=' + encodeURIComponent('Olá! Gostaria de solicitar uma afiliação com a Aliança UNION.') : '#'}" class="btn btn-primary" target="_blank">SOLICITAR AFILIAÇÃO</a>
           </div>
         </section>
       </main>
@@ -444,9 +444,9 @@ app.get('/', async (req, res) => {
         <div class="footer-content">
           <div class="footer-logo">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5"><path d="M14.5 2L20 7.5L9.5 18L4 18L4 12.5L14.5 2Z"/><path d="M4 18L2 22"/><path d="M6 14L2 18"/></svg>
-            <span class="logo-text">ALIANÇA VORTEX</span>
+            <span class="logo-text">ALIANÇA UNION</span>
           </div>
-          <p class="footer-copy">${settings.footer_text || '© 2026 Aliança Vortex. Todos os direitos reservados.'}</p>
+          <p class="footer-copy">${settings.footer_text || '© 2026 Aliança UNION. Todos os direitos reservados.'}</p>
           <div class="footer-social">
             ${settings.whatsapp_link ? `<a href="${settings.whatsapp_link}" target="_blank" class="footer-social-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>` : ''}
             ${settings.instagram_link ? `<a href="${settings.instagram_link}" target="_blank" class="footer-social-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>` : ''}
@@ -473,7 +473,7 @@ async function startServer() {
   app.listen(PORT, () => {
     console.log(`
 ╔════════════════════════════════════════════════╗
-║          ⚔  ALIANÇA VORTEX - ONLINE  ⚔        ║
+║          ⚔  ALIANÇA UNION - ONLINE  ⚔        ║
 ╠════════════════════════════════════════════════╣
 ║  Servidor: http://localhost:${PORT}              ║
 ║  Painel:   http://localhost:${PORT}/admin         ║

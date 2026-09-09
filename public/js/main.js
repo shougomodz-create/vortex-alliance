@@ -1,5 +1,5 @@
 // ========================================
-// ALIANÇA VORTEX - JAVASCRIPT PRINCIPAL
+// ALIANÇA UNION - JAVASCRIPT PRINCIPAL
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
     
-    localStorage.setItem('vortex-layout-' + section, layout);
+    localStorage.setItem('union-layout-' + section, layout);
   };
   
   function applyLayout(container, layout) {
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Load saved layouts
   ['parcerias', 'afiliados'].forEach(section => {
-    const saved = localStorage.getItem('vortex-layout-' + section);
+    const saved = localStorage.getItem('union-layout-' + section);
     if (saved) window.setLayout(section, saved);
   });
   
