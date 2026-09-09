@@ -117,28 +117,18 @@ body::before {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-}
-
-.logo-img {
-  height: 32px;
-  width: auto;
-}
-
-.logo-text {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: 0.04em;
-  margin-left: 0.5rem;
-}
-  object-fit: contain;
-  filter: drop-shadow(0 0 6px rgba(139, 0, 255, 0.3));
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--accent-purple);
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 20px rgba(139, 0, 255, 0.5);
   transition: var(--transition);
 }
 
-.logo:hover .logo-img {
-  filter: drop-shadow(0 0 10px rgba(139, 0, 255, 0.5));
+.logo:hover {
+  color: var(--accent-gold);
+  text-shadow: 0 0 25px rgba(184, 134, 11, 0.6);
 }
 
 .logo-icon {

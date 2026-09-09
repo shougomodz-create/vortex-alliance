@@ -463,7 +463,7 @@ app.get('/', async (req, res) => {
         if(!c)return;
         var ctx=c.getContext('2d');
         var particles=[];
-        var count=40;
+        var count=60;
         function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight}
         resize();
         window.addEventListener('resize',resize);
@@ -471,9 +471,10 @@ app.get('/', async (req, res) => {
           particles.push({
             x:Math.random()*c.width,
             y:Math.random()*c.height,
-            r:Math.random()*1.5+0.5,
-            speed:Math.random()*0.3+0.1,
-            opacity:Math.random()*0.15+0.05
+            r:Math.random()*2.5+1,
+            speed:Math.random()*0.5+0.2,
+            opacity:Math.random()*0.35+0.1,
+            glow:Math.random()*15+5
           });
         }
         function draw(){
@@ -483,7 +484,10 @@ app.get('/', async (req, res) => {
             ctx.beginPath();
             ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
             ctx.fillStyle='rgba(139,0,255,'+p.opacity+')';
+            ctx.shadowBlur=p.glow;
+            ctx.shadowColor='rgba(139,0,255,0.5)';
             ctx.fill();
+            ctx.shadowBlur=0;
             p.y+=p.speed;
             if(p.y>c.height+10){p.y=-10;p.x=Math.random()*c.width}
           }
