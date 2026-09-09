@@ -227,8 +227,9 @@ app.get('/', async (req, res) => {
       <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
+      <canvas id="siteParticles"></canvas>
       <nav class="navbar">
-        <a href="#inicio" class="logo">UNX</a>
+        <a href="#inicio" class="logo">⚔️ UNX</a>
         <button class="menu-toggle" aria-label="Abrir menu">
           <span></span><span></span><span></span>
         </button>
@@ -243,7 +244,6 @@ app.get('/', async (req, res) => {
 
       <main>
         <section id="inicio" class="hero">
-          <canvas id="heroParticles"></canvas>
           <div class="hero-content">
             <div class="hero-text">
               <img src="/images/logo-unx.png" alt="ALIANÇA UNION" class="hero-logo">
@@ -459,12 +459,12 @@ app.get('/', async (req, res) => {
 
       <script>
       (function(){
-        var c=document.getElementById('heroParticles');
+        var c=document.getElementById('siteParticles');
         if(!c)return;
         var ctx=c.getContext('2d');
         var particles=[];
-        var count=60;
-        function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight}
+        var count=80;
+        function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
         resize();
         window.addEventListener('resize',resize);
         for(var i=0;i<count;i++){
