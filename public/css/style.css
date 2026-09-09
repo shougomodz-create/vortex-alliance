@@ -116,6 +116,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.4rem;
   text-decoration: none;
   font-family: var(--font-heading);
   font-size: 1.3rem;
@@ -126,9 +127,19 @@ body::before {
   transition: var(--transition);
 }
 
+.logo-icon {
+  filter: drop-shadow(0 0 6px rgba(139, 0, 255, 0.5));
+  transition: var(--transition);
+}
+
 .logo:hover {
   color: var(--accent-gold);
   text-shadow: 0 0 25px rgba(184, 134, 11, 0.6);
+}
+
+.logo:hover .logo-icon {
+  stroke: var(--accent-gold);
+  filter: drop-shadow(0 0 8px rgba(184, 134, 11, 0.6));
 }
 
 .logo-icon {
