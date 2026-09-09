@@ -7,4 +7,7 @@ Thumbs.db
 public/images/*
 !public/images/.gitkeep
 !public/images/favicon.svg
-!public/images/logo-vortex.svg
+!public/images/logo-union.svg
+!public/images/logo-unx.png
+!public/images/og-image.jpg
+!public/images/og-image.png
